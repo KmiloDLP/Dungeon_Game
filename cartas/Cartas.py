@@ -24,6 +24,15 @@ class Carta:
         else:
             print(f"{self.nombre} ha recibido {ataque} de daño")
 
+    def to_dict(self):
+        return {
+            "tipo": self.__class__.__name__,
+            "nombre": self.nombre,
+            "vida": self.vida,
+            "vida_max": self.vida_max,
+            "atk": self.atk
+    }
+
     @staticmethod
     def calcular_rank_atk(atk):
         if atk >= 46:

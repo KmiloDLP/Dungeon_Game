@@ -1,5 +1,4 @@
 import os
-import pygame
 
 class Marco:
     def __init__(self, rank_hp, rank_atk, nombre):
@@ -20,31 +19,25 @@ class Marco:
         else:
             self.rank = "D"
 
-        # Color
-        colores = {
-            "S": (255, 215, 0),    # amarillo
-            "A": (128, 0, 128),    # morado
-            "B": (0, 0, 255),      # azul
-            "C": (0, 255, 0),      # verde
-            "D": (128, 128, 128)   # gris
-        }
-        self.color = colores[self.rank]
-
+        # 📁 Rutas base
         base_dir = os.path.dirname(__file__)
         img_dir = os.path.join(base_dir, "img")
 
+        # =========================
+        # 🟡 FONDO POR RANK
+        # =========================
+        self.ruta_fondo = os.path.join(img_dir, "fondos", f"{self.rank}.png")
 
+        if not os.path.exists(self.ruta_fondo):
+            print(f"[WARN] No existe fondo para rank {self.rank}")
+            self.ruta_fondo = None
+
+        # =========================
+        # 🎴 IMAGEN DE CARTA
+        # =========================
         nombre_img = f"{nombre.lower()}.png"
-        ruta = os.path.join(img_dir, nombre_img)
+        self.ruta_imagen = os.path.join(img_dir, "cartas", nombre_img)
 
-        try:
-            self.imagen = pygame.image.load(ruta).convert_alpha()
-        except:
-            # si no existe, carga default
-            ruta_default = os.path.join(img_dir, "default.png")
-            self.imagen = pygame.image.load(ruta_default).convert_alpha()
-
-        # Opcional: escalar imagen
-        self.imagen = pygame.transform.scale(self.imagen, (180, 260))
-
-        
+        if not os.path.exists(self.ruta_imagen):
+            print(f"[WARN] No existe imagen para {nombre}")
+            self.ruta_imagen = None

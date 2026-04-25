@@ -30,8 +30,6 @@ class Cofre:
 
     def generar_carta(self):
 
-
-
         criaturas = ["Golem", "Dragon", "Vampiro", "Fantasma", "Ogro", "Lich", "Troll", "Fenix", "Cristalize"]
         
         criature = random.choice(criaturas)
@@ -62,6 +60,7 @@ class Cofre:
 
         carta = criaturas_map[criature]
         return carta(hp, atk)
+
 
     def generar_objeto(self):
         if self.rango == "A":
