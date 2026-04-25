@@ -23,6 +23,15 @@ class MenuState:
         if opcion == "Luchar":
             from states.combate import CombatState
             self.game.change_state(CombatState(self.game))
+
+        elif opcion == "Mazo":
+            from states.Mazo import MazoState
+            self.game.change_state(MazoState(self.game))
+
+        elif opcion == "Inventario":
+            from states.Inventario import InventarioState
+            self.game.change_state(InventarioState(self.game))
+
         elif opcion == "Salir":
             pygame.quit()
             exit()

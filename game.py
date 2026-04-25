@@ -1,5 +1,6 @@
 from states.menu import MenuState
 from states.combate import CombatState
+from system.Save import guardar_juego, cargar_juego
 
 class Game:
     def __init__(self, screen):
@@ -9,6 +10,10 @@ class Game:
         self.mazo = []
         self.inventario = []
         self.oro = 0
+
+        cargar_juego(self)
+
+        self.state = MenuState(self)
 
     def change_state(self, new_state):
         self.state = new_state

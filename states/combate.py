@@ -2,6 +2,8 @@ import pygame
 import random
 from Ui.draw_cart import draw_card
 from design.Cofre import Cofre
+from system.Save import guardar_juego
+from cartas.Golems import Golems
 
 
 class CombatState:
@@ -14,7 +16,8 @@ class CombatState:
 
         # jugador
         if len(game.mazo) == 0:
-            self.player = Cofre(random.choice(["C", "B", "A", "D"])).generar_carta()
+            #self.player = Cofre(random.choice(["C", "B", "A", "D"])).generar_carta()
+            self.player = Golems(vida=200, atk=50)
             game.mazo.append(self.player)
         else:
             self.player = game.mazo[0]
@@ -87,13 +90,17 @@ class CombatState:
                 self.game.mazo.append(recompensa)
                 print("Mazo:", self.game.mazo)
 
+            self.player.vida = self.player.vida_max
+
             self.result_text = "Ganaste!"
+            guardar_juego(self.game)
         
         elif self.player.vida <= 0:
             self.combate_terminado = True
 
             self.game.mazo.remove(self.player)
             self.result_text = "Perdiste!"
+            guardar_juego(self.game)
 
     def update(self):
         pass
@@ -101,15 +108,12 @@ class CombatState:
     def draw(self, screen):
         screen.fill((30, 30, 30))
 
-        # 📝 resultado del turno
         texto = self.font.render(self.result_text, True, (255,255,255))
         screen.blit(texto, (300, 50))
 
-        # 🎴 dibujar cartas
         draw_card(screen, self.player, 100, 150)
         draw_card(screen, self.enemy, 500, 150)
 
-        # 🎮 opciones
         for i, op in enumerate(self.options):
             txt = self.font.render(f"{i+1}. {op}", True, (255,255,255))
             screen.blit(txt, (100, 450 + i * 40))

@@ -1,0 +1,23 @@
+{
+    "mazo": [
+        {
+            "tipo": "Golems",
+            "nombre": "Golem",
+            "vida": 200,
+            "vida_max": 200,
+            "atk": 50
+        },
+        {
+            "tipo": "Golems",
+            "nombre": "Golem",
+            "vida": 200,
+            "vida_max": 200,
+            "atk": 50
+        }
+    ],
+    "inventario": [
+        "Superpocion",
+        "Superpocion"
+    ],
+    "oro": 22
+}
