@@ -55,13 +55,17 @@
             "vida": 68,
             "vida_max": 68,
             "atk": 23
+        },
+        {
+            "tipo": "Cristalize",
+            "nombre": "Cristalize",
+            "vida": 97,
+            "vida_max": 97,
+            "atk": 33
         }
     ],
     "inventario": {
-        "Superpocion": 4,
-        "Hiperpocion": 4,
-        "Minipocion": 3,
-        "Pocion": 1
+        "Superpocion": 4
     },
     "oro": 143
 }
