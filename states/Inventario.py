@@ -1,4 +1,6 @@
 import pygame
+import os
+from Ui.draw_cart import draw_item
 
 class InventarioState:
     def __init__(self, game):
@@ -14,17 +16,25 @@ class InventarioState:
     def update(self):
         pass
 
-    def draw(self, screen):  # ✅ BIEN (dentro de la clase)
+    def draw(self, screen):
         screen.fill((30, 30, 30))
 
+        width = screen.get_width()
+
         titulo = self.font.render("Inventario", True, (255,255,255))
-        screen.blit(titulo, (20, 20))
+        screen.blit(titulo, (width//2 - titulo.get_width()//2, 20))
 
-        y = 100
-        for item, cantidad in self.game.inventario.items():
-            texto = self.font.render(f"{item} x{cantidad}", True, (255,255,255))
-            screen.blit(texto, (50, y))
-            y += 40
+        start_x = width // 2 - (4 * 200 + (4 - 1) * 40) // 2
+        start_y = 100
 
-        oro_text = self.font.render(f"Oro: {self.game.oro}", True, (255,215,0))
-        screen.blit(oro_text, (50, 400))
+        items = [("Oro", self.game.oro)] + list(self.game.inventario.items())
+
+        for i, (item, cantidad) in enumerate(items):
+
+            col = i % 4
+            fila = i // 4
+
+            x = start_x + col * (200 + 40)
+            y = start_y + fila * (300 + 40) 
+
+            draw_item(screen, item, x, y, cantidad)

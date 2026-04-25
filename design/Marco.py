@@ -19,22 +19,17 @@ class Marco:
         else:
             self.rank = "D"
 
-        # 📁 Rutas base
         base_dir = os.path.dirname(__file__)
         img_dir = os.path.join(base_dir, "img")
 
-        # =========================
-        # 🟡 FONDO POR RANK
-        # =========================
+
         self.ruta_fondo = os.path.join(img_dir, "fondos", f"{self.rank}.png")
 
         if not os.path.exists(self.ruta_fondo):
             print(f"[WARN] No existe fondo para rank {self.rank}")
             self.ruta_fondo = None
 
-        # =========================
-        # 🎴 IMAGEN DE CARTA
-        # =========================
+
         nombre_img = f"{nombre.lower()}.png"
         self.ruta_imagen = os.path.join(img_dir, "cartas", nombre_img)
 

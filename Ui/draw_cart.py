@@ -1,5 +1,5 @@
-import pygame
-
+import os
+from tkinter import font
 import pygame
 
 pygame.font.init()
@@ -40,7 +40,7 @@ def draw_card(screen, carta, x, y):
     fondo = pygame.transform.scale(fondo, (width, height))
     screen.blit(fondo, (x, y))
 
-    # NOMBRE (Usando Nicholas)
+    # NOMBRE 
     text_nombre = font_title.render(carta.nombre, True, (0, 0, 0))
     text_rect = text_nombre.get_rect(center=(x + 80, y + 20)) # Centrado a 100
     screen.blit(text_nombre, text_rect)
@@ -53,7 +53,7 @@ def draw_card(screen, carta, x, y):
     img_rect = img.get_rect(center=(x + 100, y + 155))
     screen.blit(img, img_rect)
 
-    # RANK (Usando Nicholas)
+    # RANK 
     text_rank = font_rank.render(carta.marco.rank, True, (0, 0, 0))
     rank_rect = text_rank.get_rect(center=(x + width - 32, y + 20))
     screen.blit(text_rank, rank_rect)
@@ -66,3 +66,28 @@ def draw_card(screen, carta, x, y):
     
     # ATK (Rojo)
     draw_text_outline(screen, f"{carta.atk}", font_stat, (255, 0, 0), color_contorno, (x + width - 32, y + height - 25))
+
+def draw_item(screen, item, x, y, cantidad):
+
+    base_dir = os.path.dirname(__file__)
+    img_dir = os.path.join(base_dir, "items")
+    ruta_item = os.path.join(img_dir, f"{item}.png")
+
+    try:
+        img = load_image(ruta_item)
+    except:
+        print("Error cargando:", ruta_item)
+        return
+
+    ITEM_W, ITEM_H = 200, 300
+    img = pygame.transform.scale(img, (ITEM_W, ITEM_H))
+    screen.blit(img, (x, y))
+
+    draw_text_outline(
+        screen,
+        "x"+ f"{cantidad}",
+        font_stat,
+        (255, 255, 255),
+        (0, 0, 0),
+        (x + ITEM_W - 150, y + ITEM_H - 40)
+    )

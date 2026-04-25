@@ -41,12 +41,27 @@
             "vida": 95,
             "vida_max": 95,
             "atk": 11
+        },
+        {
+            "tipo": "Trolls",
+            "nombre": "Troll",
+            "vida": 96,
+            "vida_max": 96,
+            "atk": 15
+        },
+        {
+            "tipo": "Vampiros",
+            "nombre": "Vampiro",
+            "vida": 68,
+            "vida_max": 68,
+            "atk": 23
         }
     ],
-"inventario": {
-    "Superpocion": 4,
-    "Hiperpocion": 4,
-    "Minipocion": 3
-},
-    "oro": 110
+    "inventario": {
+        "Superpocion": 4,
+        "Hiperpocion": 4,
+        "Minipocion": 3,
+        "Pocion": 1
+    },
+    "oro": 143
 }

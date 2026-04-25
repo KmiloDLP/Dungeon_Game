@@ -64,20 +64,20 @@ class Cofre:
 
     def generar_objeto(self):
         if self.rango == "A":
-            return "Minipocion"
-        elif self.rango == "B":
-            return "Pocion"
-        elif self.rango == "C":
-            return "Superpocion"
-        else:
             return "Hiperpocion"
+        elif self.rango == "B":
+            return "Superpocion"
+        elif self.rango == "C":
+            return "Pocion"
+        else:
+            return "Minipocion"
 
     def generar_oro(self):
         if self.rango == "A":
-            return random.randint(10, 30)
-        elif self.rango == "B":
-            return random.randint(31, 60)
-        elif self.rango == "C":
-            return random.randint(61, 90)
-        else:
             return random.randint(91, 120)
+        elif self.rango == "B":
+            return random.randint(61, 90)
+        elif self.rango == "C":
+            return random.randint(31, 60)
+        else:
+            return random.randint(10, 30)
