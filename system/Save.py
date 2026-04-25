@@ -18,7 +18,7 @@ def cargar_juego(game):
             data = json.load(f)
 
         game.mazo = [crear_carta_desde_dict(c) for c in data["mazo"]]
-        game.inventario = data["inventario"]
+        game.inventario = data.get("inventario", {})
         game.oro = data["oro"]
 
     except FileNotFoundError:

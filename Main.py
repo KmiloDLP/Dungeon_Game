@@ -2,7 +2,7 @@ import pygame
 from game import Game
 
 pygame.init()
-screen = pygame.display.set_mode((900, 600))
+screen = pygame.display.set_mode((1000, 800))
 clock = pygame.time.Clock()
 
 game = Game(screen)

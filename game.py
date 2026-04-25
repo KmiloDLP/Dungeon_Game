@@ -8,7 +8,7 @@ class Game:
         self.state = MenuState(self)
 
         self.mazo = []
-        self.inventario = []
+        self.inventario = {}
         self.oro = 0
 
         cargar_juego(self)

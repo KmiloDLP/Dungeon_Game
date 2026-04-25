@@ -7,7 +7,8 @@ class Ogros(Carta):
         super().__init__("Ogro", vida, atk)
 
 
-def Atacar(self, target):
+def Atacar(self):
         vida_perdida = self.vida_max - self.vida
         ataque = self.atk + (vida_perdida * 0.1)
-        target.Recibir_daño(ataque)
+        
+        return ataque

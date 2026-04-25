@@ -5,12 +5,13 @@ class Cristalize(Carta):
         super().__init__("Cristalize", vida, atk)
         self.cargas = 0
 
-    def Atacar(self, target):
+    def Atacar(self):
         ataque = self.atk
         for _ in range(self.cargas):
             ataque += self.atk * 1.5
-        target.Recibir_daño(ataque)
+
         self.cargas = 0
+        return ataque
 
     def Recibir_daño(self, ataque):
         self.cargas += 1

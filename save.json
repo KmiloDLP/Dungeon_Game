@@ -1,23 +1,52 @@
 {
     "mazo": [
         {
-            "tipo": "Golems",
-            "nombre": "Golem",
+            "tipo": "Dragones",
+            "nombre": "Dragon",
             "vida": 200,
             "vida_max": 200,
             "atk": 50
         },
         {
-            "tipo": "Golems",
-            "nombre": "Golem",
+            "tipo": "Vampiros",
+            "nombre": "Vampiro",
             "vida": 200,
             "vida_max": 200,
             "atk": 50
+        },
+        {
+            "tipo": "Fenixs",
+            "nombre": "Fenix",
+            "vida": 150,
+            "vida_max": 150,
+            "atk": 30
+        },
+        {
+            "tipo": "Cristalize",
+            "nombre": "Cristalize",
+            "vida": 180,
+            "vida_max": 180,
+            "atk": 40
+        },
+        {
+            "tipo": "Ogros",
+            "nombre": "Ogro",
+            "vida": 122,
+            "vida_max": 122,
+            "atk": 33
+        },
+        {
+            "tipo": "Fenixs",
+            "nombre": "Fenix",
+            "vida": 95,
+            "vida_max": 95,
+            "atk": 11
         }
     ],
-    "inventario": [
-        "Superpocion",
-        "Superpocion"
-    ],
-    "oro": 22
+"inventario": {
+    "Superpocion": 4,
+    "Hiperpocion": 4,
+    "Minipocion": 3
+},
+    "oro": 110
 }

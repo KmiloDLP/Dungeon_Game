@@ -1,6 +1,7 @@
 from design.Marco import Marco
 
 class Carta:
+
     def __init__(self, nombre, vida, atk):
         self.nombre = nombre
         self.vida = vida
@@ -12,8 +13,9 @@ class Carta:
 
         self.marco = Marco(rank_hp, rank_atk, self.nombre)
 
-    def Atacar(self, target):
-        target.Recibir_daño(self.atk)
+    def Atacar(self):
+        daño = self.atk
+        return daño
 
     def Recibir_daño(self, ataque):
         self.vida -= ataque

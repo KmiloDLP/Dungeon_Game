@@ -22,8 +22,9 @@ class Fenixs(Carta):
         else:
             print(f"{self.nombre} ha resibido {daño} de daño")
 
-    def Atacar(self, target):
+    def Atacar(self):
         ataque = self.atk
         if self.renacido:
             ataque *= 2
-        target.Recibir_daño(ataque)
+        
+        return ataque

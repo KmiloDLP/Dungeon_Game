@@ -21,8 +21,8 @@ class MenuState:
         opcion = self.options[self.selected]
 
         if opcion == "Luchar":
-            from states.combate import CombatState
-            self.game.change_state(CombatState(self.game))
+            from states.Selecc_Cart import SeleccionCartaState
+            self.game.change_state(SeleccionCartaState(self.game))
 
         elif opcion == "Mazo":
             from states.Mazo import MazoState
