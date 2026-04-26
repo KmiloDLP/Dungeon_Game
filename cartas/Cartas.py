@@ -1,3 +1,5 @@
+import math
+
 from design.Marco import Marco
 
 class Carta:
@@ -8,6 +10,10 @@ class Carta:
         self.vida_max = vida
         self.atk = atk
 
+        self.anim_state = "idle"
+        self.anim_timer = 0
+        self.shake = 0
+
         rank_atk = self.calcular_rank_atk(self.atk)
         rank_hp = self.calcular_rank_hp(self.vida_max)
 
@@ -15,10 +21,14 @@ class Carta:
 
     def Atacar(self):
         daño = self.atk
-        return daño
+        return math.ceil(daño)
 
     def Recibir_daño(self, ataque):
         self.vida -= ataque
+
+        self.anim_state = "hurt"
+        self.anim_timer = 15
+        self.shake = 8
 
         if self.vida <= 0:
             self.vida = 0

@@ -1,71 +1,81 @@
 {
     "mazo": [
         {
-            "tipo": "Dragones",
-            "nombre": "Dragon",
-            "vida": 200,
-            "vida_max": 200,
-            "atk": 50
-        },
-        {
             "tipo": "Vampiros",
             "nombre": "Vampiro",
             "vida": 200,
             "vida_max": 200,
             "atk": 50
-        },
-        {
-            "tipo": "Fenixs",
-            "nombre": "Fenix",
-            "vida": 150,
-            "vida_max": 150,
-            "atk": 30
-        },
-        {
-            "tipo": "Cristalize",
-            "nombre": "Cristalize",
-            "vida": 180,
-            "vida_max": 180,
-            "atk": 40
-        },
-        {
-            "tipo": "Ogros",
-            "nombre": "Ogro",
-            "vida": 122,
-            "vida_max": 122,
-            "atk": 33
-        },
-        {
-            "tipo": "Fenixs",
-            "nombre": "Fenix",
-            "vida": 95,
-            "vida_max": 95,
-            "atk": 11
         },
         {
             "tipo": "Trolls",
             "nombre": "Troll",
-            "vida": 96,
-            "vida_max": 96,
-            "atk": 15
+            "vida": 200,
+            "vida_max": 200,
+            "atk": 20
         },
         {
-            "tipo": "Vampiros",
-            "nombre": "Vampiro",
-            "vida": 68,
-            "vida_max": 68,
-            "atk": 23
+            "tipo": "Fenixs",
+            "nombre": "Fenix",
+            "vida": 180,
+            "vida_max": 180,
+            "atk": 11
+        },
+        {
+            "tipo": "Fantasmas",
+            "nombre": "Fantasma",
+            "vida": 200,
+            "vida_max": 200,
+            "atk": 24
+        },
+        {
+            "tipo": "Golems",
+            "nombre": "Golem",
+            "vida": 181,
+            "vida_max": 181,
+            "atk": 21
         },
         {
             "tipo": "Cristalize",
             "nombre": "Cristalize",
-            "vida": 97,
-            "vida_max": 97,
-            "atk": 33
+            "vida": 125,
+            "vida_max": 125,
+            "atk": 16
+        },
+        {
+            "tipo": "Lichs",
+            "nombre": "Lich",
+            "vida": 50,
+            "vida_max": 50,
+            "atk": 86
+        },
+        {
+            "tipo": "Ogros",
+            "nombre": "Ogro",
+            "vida": 147,
+            "vida_max": 147,
+            "atk": 20
+        },
+        {
+            "tipo": "Vampiros",
+            "nombre": "Vampiro",
+            "vida": 143,
+            "vida_max": 143,
+            "atk": 48
+        },
+        {
+            "tipo": "Fenixs",
+            "nombre": "Fenix",
+            "vida": 56,
+            "vida_max": 56,
+            "atk": 32
         }
     ],
     "inventario": {
-        "Superpocion": 4
+        "Superpocion": 8,
+        "Hiperpocion": 4,
+        "Pocion": 2,
+        "Minipocion": 3
     },
-    "oro": 143
+    "oro": 491
 }

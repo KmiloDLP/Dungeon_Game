@@ -1,4 +1,6 @@
 
+import math
+
 from cartas.Cartas import Carta
 
 
@@ -10,6 +12,11 @@ class Fenixs(Carta):
     def Recibir_daño(self, ataque):
         daño=ataque
         self.vida -= daño
+
+        self.anim_state = "hurt"
+        self.anim_timer = 15
+        self.shake = 8
+        
         if self.vida <= 0:
 
             if not self.renacido:
@@ -27,4 +34,4 @@ class Fenixs(Carta):
         if self.renacido:
             ataque *= 2
         
-        return ataque
+        return math.ceil(ataque)

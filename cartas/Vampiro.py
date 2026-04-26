@@ -1,4 +1,6 @@
 
+import math
+
 from cartas.Cartas import Carta
 
 
@@ -8,5 +10,12 @@ class Vampiros(Carta):
 
     def Atacar(self):
         ataque = self.atk
-        self.vida += ataque * 0.1
-        return ataque
+        self.vida += math.ceil(ataque * 0.1)
+        return math.ceil(ataque)
+
+    def Recuperar_vida(self, daño):
+        vida_recuperada = daño * 0.1
+        self.vida += math.ceil(vida_recuperada)
+
+        self.anim_state = "heal"
+        self.anim_timer = 15

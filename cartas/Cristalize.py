@@ -1,3 +1,5 @@
+import math
+
 from cartas.Cartas import Carta
 
 class Cristalize(Carta):
@@ -11,7 +13,7 @@ class Cristalize(Carta):
             ataque += self.atk * 1.5
 
         self.cargas = 0
-        return ataque
+        return math.ceil(ataque)
 
     def Recibir_daño(self, ataque):
         self.cargas += 1
