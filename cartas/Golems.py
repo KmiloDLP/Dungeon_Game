@@ -7,7 +7,7 @@ class Golems(Carta):
         super().__init__("Golem", vida, atk)
 
     def Recibir_daño(self, ataque):
-        daño_real = ataque * 0.9  # reduce 10%
+        daño_real = ataque * 0.7 
 
         self.vida -= math.ceil(daño_real)
 

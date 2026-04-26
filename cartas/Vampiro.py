@@ -14,7 +14,7 @@ class Vampiros(Carta):
         return math.ceil(ataque)
 
     def Recuperar_vida(self, daño):
-        vida_recuperada = daño * 0.1
+        vida_recuperada = daño * 0.25
         self.vida += math.ceil(vida_recuperada)
 
         self.anim_state = "heal"

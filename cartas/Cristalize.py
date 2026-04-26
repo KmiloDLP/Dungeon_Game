@@ -10,14 +10,19 @@ class Cristalize(Carta):
     def Atacar(self):
         ataque = self.atk
         for _ in range(self.cargas):
-            ataque += self.atk * 1.5
+            ataque += self.atk * 0.25
 
         self.cargas = 0
         return math.ceil(ataque)
 
     def Recibir_daño(self, ataque):
         self.cargas += 1
-        print(f"{self.nombre} gana una carga")
 
+        self.anim_state = "heal"
+        self.anim_timer = 15
+
+        print(f"{self.nombre} gana una carga")
         super().Recibir_daño(ataque)
+        return "Charged" 
+
 
