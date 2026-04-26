@@ -4,6 +4,7 @@ import pygame
 import random
 from Ui.FloatingText import FloatingText
 from Ui.draw_cart import draw_card
+from Ui.draw_cart import draw_options
 from design.Cofre import Cofre
 from system.Save import guardar_juego
 
@@ -19,7 +20,9 @@ class CombatState:
         self.delayed_events = []
 
         self.x_player = 300
+        self.selected_player = None
         self.x_enemy = 500
+        self.selected_enemy = None  
 
         # enemigo
         if enemy:
@@ -46,13 +49,17 @@ class CombatState:
 
 
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_1:
+            if   event.key == pygame.K_1:
                 self.turno("Piedra")
+                self.selected_player = 0
             elif event.key == pygame.K_2:
                 self.turno("Papel")
+                self.selected_player = 1
             elif event.key == pygame.K_3:
+                self.selected_player = 2
                 self.turno("Tijera")
 
+   
     def turno(self, eleccion):
 
         if self.combate_terminado:
@@ -60,6 +67,7 @@ class CombatState:
             return
         
         enemigo = random.choice(self.options)
+        self.selected_enemy = self.options.index(enemigo)
 
         if eleccion == enemigo:
             self.result_text = "Empate"
@@ -259,10 +267,18 @@ class CombatState:
         draw_card(screen, self.player, self.x_player - CARD_W//2, 150)
         draw_card(screen, self.enemy, self.x_enemy - CARD_W//2, 150)
 
-        # Opciones
         for i, op in enumerate(self.options):
-            txt = self.font.render(f"{i+1}. {op}", True, (255,255,255))
-            screen.blit(txt, (100, 450 + i * 40))
+            offset = 0
+            if self.selected_player == i:
+                offset = -30  # 👈 sube 20px
+            draw_options(screen, op, 120 + i * 90, 500, offset)
+            
+        for i, op in enumerate(self.options):
+            offset = 0
+            if self.selected_enemy == i:
+                offset = -30  # 👈 sube 20px
+            draw_options(screen, op, 620 + i * 90, 500, offset)
+
 
         for t in self.float_texts:
             t.draw(screen)

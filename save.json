@@ -1,20 +1,6 @@
 {
     "mazo": [
         {
-            "tipo": "Cristalize",
-            "nombre": "Cristalize",
-            "vida": 100,
-            "vida_max": 100,
-            "atk": 50
-        },
-        {
-            "tipo": "Ogros",
-            "nombre": "Ogro",
-            "vida": 115,
-            "vida_max": 115,
-            "atk": 21
-        },
-        {
             "tipo": "Fantasmas",
             "nombre": "Fantasma",
             "vida": 166,
@@ -43,20 +29,6 @@
             "atk": 13
         },
         {
-            "tipo": "Lichs",
-            "nombre": "Lich",
-            "vida": 30,
-            "vida_max": 30,
-            "atk": 44
-        },
-        {
-            "tipo": "Trolls",
-            "nombre": "Troll",
-            "vida": 88,
-            "vida_max": 88,
-            "atk": 11
-        },
-        {
             "tipo": "Vampiros",
             "nombre": "Vampiro",
             "vida": 110,
@@ -76,13 +48,55 @@
             "vida": 70,
             "vida_max": 70,
             "atk": 19
+        },
+        {
+            "tipo": "Dragones",
+            "nombre": "Dragon",
+            "vida": 92,
+            "vida_max": 92,
+            "atk": 31
+        },
+        {
+            "tipo": "Lichs",
+            "nombre": "Lich",
+            "vida": 37,
+            "vida_max": 37,
+            "atk": 38
+        },
+        {
+            "tipo": "Trolls",
+            "nombre": "Troll",
+            "vida": 95,
+            "vida_max": 95,
+            "atk": 34
+        },
+        {
+            "tipo": "Fantasmas",
+            "nombre": "Fantasma",
+            "vida": 194,
+            "vida_max": 194,
+            "atk": 44
+        },
+        {
+            "tipo": "Cristalize",
+            "nombre": "Cristalize",
+            "vida": 170,
+            "vida_max": 170,
+            "atk": 28
+        },
+        {
+            "tipo": "Trolls",
+            "nombre": "Troll",
+            "vida": 79,
+            "vida_max": 79,
+            "atk": 33
         }
     ],
     "inventario": {
         "Superpocion": 10,
         "Hiperpocion": 5,
         "Pocion": 3,
-        "Minipocion": 3
+        "Minipocion": 4
     },
-    "oro": 761
+    "oro": 811
 }

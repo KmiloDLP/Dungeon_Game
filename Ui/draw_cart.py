@@ -120,7 +120,7 @@ def draw_card(screen, carta, x, y):
         (x + width - 32 + offset_x, y + height - 25 + offset_y)
     )
 
-def draw_item(screen, item, x, y, cantidad=None):
+def draw_item(screen, item, x, y, cantidad):
 
     base_dir = os.path.dirname(__file__)
     img_dir = os.path.join(base_dir, "items")
@@ -136,7 +136,23 @@ def draw_item(screen, item, x, y, cantidad=None):
     img = pygame.transform.scale(img, (ITEM_W, ITEM_H))
     screen.blit(img, (x, y))
 
-    if cantidad is not None:
-        draw_text_outline(
-           screen,"x"+ f"{cantidad}",font_stat, (255, 255, 255),(0, 0, 0), (x + ITEM_W - 150, y + ITEM_H - 40)
-        )
+    draw_text_outline(
+       screen,"x"+ f"{cantidad}",font_stat, (255, 255, 255),(0, 0, 0), (x + ITEM_W - 150, y + ITEM_H - 40)
+    )
+
+def draw_options(screen, item, x, y, offset_y=0):
+
+    base_dir = os.path.dirname(__file__)
+    img_dir = os.path.join(base_dir, "options")
+    ruta_item = os.path.join(img_dir, f"{item}.png")
+
+    try:
+        img = load_image(ruta_item)
+    except:
+        print("Error cargando:", ruta_item)
+        return
+
+    ITEM_W, ITEM_H = 80, 130
+    img = pygame.transform.scale(img, (ITEM_W, ITEM_H))
+
+    screen.blit(img, (x, y + offset_y))

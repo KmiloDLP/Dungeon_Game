@@ -1,5 +1,4 @@
 import pygame
-import os
 from Ui.draw_cart import draw_item
 
 class InventarioState:
