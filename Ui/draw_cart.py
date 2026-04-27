@@ -7,9 +7,13 @@ pygame.font.init()
 try:
     font_path = "Ui/fonts/HARLOWSI.TTF" 
     font_rank = "Ui/fonts/Asteroid Blaster.ttf" 
+    font_path_ui = "./Ui/fonts/DeutscheZierschrift.ttf"
+
     font_title = pygame.font.Font(font_path, 18)
     font_rank = pygame.font.Font(font_rank, 18)
     font_stat = pygame.font.Font(font_path, 18)
+    font_ui = pygame.font.Font(font_path_ui, 40)
+    font_ui_mini = pygame.font.Font(font_path_ui, 18)
 except Exception as e:
     print(f"Aviso: No se pudo cargar {font_path}. Usando Arial. Error: {e}")
     pygame.font.init() 
@@ -17,7 +21,7 @@ except Exception as e:
     font_rank = pygame.font.SysFont("arial", 18, bold=True)
     font_stat = pygame.font.SysFont("arial", 18, bold=True)
 
-
+count=0
 image_cache = {}
 
 def load_image(path):
@@ -25,9 +29,7 @@ def load_image(path):
         image_cache[path] = pygame.image.load(path).convert_alpha()
     return image_cache[path]
 
-def draw_text(surface, text, font,
-              col=(255,255,255), out_col=(0,0,0),
-              pos=(0,0), center=False):
+def draw_text(surface, text, font,col=(255,255,255), out_col=(0,0,0),pos=(0,0), center=False):
 
     main_surf = font.render(text, True, col)
     rect = main_surf.get_rect()
@@ -133,7 +135,7 @@ def draw_card(screen, carta, x, y):
         (x + width - 32 + offset_x, y + height - 25 + offset_y)
     )
 
-def draw_item(screen, item, x, y, cantidad):
+def draw_item(screen, item, x, y, cantidad, img_size=None):
 
     base_dir = os.path.dirname(__file__)
     img_dir = os.path.join(base_dir, "items")
@@ -145,15 +147,18 @@ def draw_item(screen, item, x, y, cantidad):
         print("Error cargando:", ruta_item)
         return
 
-    ITEM_W, ITEM_H = 200, 300
+    ITEM_W, ITEM_H = img_size if img_size else (200, 300)
     img = pygame.transform.scale(img, (ITEM_W, ITEM_H))
     screen.blit(img, (x, y))
 
+    text_x = x + ITEM_W - 150
+    text_y = y + ITEM_H - 40
+
     draw_text(
-       screen,"x"+ f"{cantidad}",font_stat, (255, 255, 255),(0, 0, 0), (x + ITEM_W - 150, y + ITEM_H - 40)
+       screen,"x"+ f"{cantidad}",font_stat, (255, 255, 255),(0, 0, 0), (text_x, text_y)
     )
 
-def draw_options(screen, item, x, y, offset_y=0):
+def draw_options(screen, item, x, y, offset_y=0, player=False):
 
     base_dir = os.path.dirname(__file__)
     img_dir = os.path.join(base_dir, "options")
@@ -168,5 +173,38 @@ def draw_options(screen, item, x, y, offset_y=0):
     ITEM_W, ITEM_H = 80, 130
     img = pygame.transform.scale(img, (ITEM_W, ITEM_H))
 
+    if player:
+        match item:
+            case "Piedra": number = "1"
+            case "Papel": number = "2"  
+            case "Tijera": number = "3"
+
+        draw_text(screen,number,font_ui, (255, 255, 255),(0, 0, 0), (x + 30, y + ITEM_H - 5 + offset_y)
+    )
+
     screen.blit(img, (x, y + offset_y))
 
+
+def draw_pocion(screen, pocion, x, y, cantidad,i):
+
+    base_dir = os.path.dirname(__file__)
+    img_dir = os.path.join(base_dir, "items")
+    ruta_item = os.path.join(img_dir, f"{pocion}_g.png")
+
+    try:
+        img = load_image(ruta_item)
+    except:
+        print("Error cargando:", ruta_item)
+        return
+
+    ITEM_W, ITEM_H = 30, 45
+    img = pygame.transform.scale(img, (ITEM_W, ITEM_H))
+    screen.blit(img, (x, y))
+
+    Teclas=["Q","W","E","R"]
+
+    draw_text(screen,Teclas[i],font_ui_mini, (255, 255, 255),(0, 0, 0), (x + 5 , y + ITEM_H + 10 ))
+    draw_text(screen,f"x{cantidad}",font_stat, (255, 255, 255),(0, 0, 0), (x + 28 , y + ITEM_H - 20 ))
+
+
+    

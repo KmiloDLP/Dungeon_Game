@@ -13,13 +13,27 @@ def guardar_juego(game):
 
 
 def cargar_juego(game):
+
+    ORDEN_POCIONES = {
+    "Minipocion": 1,
+    "Pocion": 2,
+    "Superpocion": 3,
+    "Hiperpocion": 4,
+}
     try:
         with open("save.json", "r") as f:
             data = json.load(f)
 
         game.mazo = [crear_carta_desde_dict(c) for c in data["mazo"]]
-        game.inventario = data.get("inventario", {})
+        inventario = data.get("inventario", {})
         game.oro = data["oro"]
+
+        game.inventario = dict(
+            sorted(
+                inventario.items(),
+                key=lambda item: ORDEN_POCIONES.get(item[0], 999)
+            )
+        )
 
     except FileNotFoundError:
         print("No hay partida guardada")

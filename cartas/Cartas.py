@@ -1,4 +1,5 @@
 import math
+from re import match
 
 from design.Marco import Marco
 
@@ -44,6 +45,25 @@ class Carta:
             "vida_max": self.vida_max,
             "atk": self.atk
     }
+
+    def Pocion_Use(self, Pocion):
+
+        porcentaje = 0
+        match Pocion:
+            case "Minipocion":
+                porcentaje = 0.1
+            case "Pocion":
+                porcentaje = 0.3
+            case "Superpocion":
+                porcentaje = 0.5
+            case "Hiperpocion":
+                porcentaje = 1.0
+
+        curacion = int(self.vida_max * porcentaje)
+        if self.vida + curacion > self.vida_max:
+            curacion = self.vida_max - self.vida
+        self.vida = min(self.vida + curacion, self.vida_max)
+        return curacion
 
     @staticmethod
     def calcular_rank_atk(atk):

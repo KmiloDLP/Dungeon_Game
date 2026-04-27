@@ -1,9 +1,7 @@
-from turtle import width
-
 import pygame
 import random
 from Ui.FloatingText import FloatingText
-from Ui.draw_cart import draw_card, draw_options, draw_text
+from Ui.draw_cart import draw_card, draw_options, draw_text, draw_item, draw_pocion
 from design.Cofre import Cofre
 from system.Save import guardar_juego
 
@@ -11,80 +9,100 @@ from system.Save import guardar_juego
 class CombatState:
 
     def __init__(self, game, carta_player, enemy=None):
-        self.combate_terminado = False
         self.game = game
         self.player = carta_player
-        self.font = pygame.font.Font(None, 40) 
-        self.float_texts = []
-        self.delayed_events = []
+        self.enemy = enemy or Cofre(random.choice(["C", "B", "A", "D"])).generar_carta()
 
-        self.x_player = 300
-        self.selected_player = None
-        self.x_enemy = 500
-        self.selected_enemy = None  
-
-        # enemigo
-        if enemy:
-            self.enemy = enemy
-        else:
-            self.enemy = Cofre(random.choice(["C", "B", "A", "D"])).generar_carta()
-    
-        # jugador
         if len(game.mazo) == 0:
             self.player = Cofre(random.choice(["C", "B", "A", "D"])).generar_carta()
             game.mazo.append(self.player)
 
-        self.options = ["Piedra", "Papel", "Tijera"]
-        self.result_text = ""
+        self.font = pygame.font.Font(None, 40)
 
+        self.options = ["Piedra", "Papel", "Tijera"]
+
+        self.result_text = ""
+        self.combate_terminado = False
+        self.waiting_continue = False
+
+        self.selected_player = None
+        self.selected_enemy = None
+
+        self.float_texts = []
+        self.delayed_events = []
+
+        self.x_player = 300
+        self.x_enemy = 500
+
+    # -------------------------
+    # 🎮 INPUT
+    # -------------------------
     def handle_event(self, event):
 
+        if event.type != pygame.KEYDOWN:
+            return
+
+        # 🏁 COMBATE TERMINADO (GANAR O PERDER)
         if self.combate_terminado:
-            
-            if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
+
+            if event.key == pygame.K_RETURN:
+
+                # 🔴 SI PERDISTE → elegir carta
+                if self.waiting_continue and len(self.game.mazo) > 0:
+                    from states.Selecc_Cart import SeleccionCartaState
+                    self.game.change_state(
+                        SeleccionCartaState(self.game, enemy=self.enemy)
+                    )
+
+                else:
+                    from states.menu import MenuState
+                    self.game.change_state(MenuState(self.game))
+
+            elif event.key == pygame.K_ESCAPE:
                 from states.menu import MenuState
                 self.game.change_state(MenuState(self.game))
+
             return
 
+        # 🎮 INPUT NORMAL
+        if event.key == pygame.K_1:
+            self.selected_player = 0
+            self.turno("Piedra")
 
-        if event.type == pygame.KEYDOWN:
-            if   event.key == pygame.K_1:
-                self.turno("Piedra")
-                self.selected_player = 0
-            elif event.key == pygame.K_2:
-                self.turno("Papel")
-                self.selected_player = 1
-            elif event.key == pygame.K_3:
-                self.selected_player = 2
-                self.turno("Tijera")
+        elif event.key == pygame.K_2:
+            self.selected_player = 1
+            self.turno("Papel")
 
-   
+        elif event.key == pygame.K_3:
+            self.selected_player = 2
+            self.turno("Tijera")
+
+        if event.key == pygame.K_q:
+            self.usar_pocion("Minipocion", self.player)
+
+        elif event.key == pygame.K_w:
+            self.usar_pocion("Pocion", self.player)
+
+        elif event.key == pygame.K_e:
+            self.usar_pocion("Superpocion", self.player)
+
+        elif event.key == pygame.K_r:
+            self.usar_pocion("Hiperpocion", self.player)
+
+    # -------------------------
+    # ⚔️ COMBATE
+    # -------------------------
     def turno(self, eleccion):
 
-        if self.combate_terminado:
-
-            print("Combate terminado, presiona Enter para volver al menú")
+        if self.waiting_continue or self.combate_terminado:
             return
-        
+
         enemigo = random.choice(self.options)
         self.selected_enemy = self.options.index(enemigo)
 
         if eleccion == enemigo:
             self.result_text = "Empate"
-
-            if self.enemy.nombre == "Troll":
-                self.enemy.Recuperar_vida()
-
-                self.float_texts.append(
-                    FloatingText(f"+{int(self.enemy.vida * 0.1)}", self.x_enemy, 200, (80, 255, 120))
-                )
-
-            if self.player.nombre == "Troll":
-                self.player.Recuperar_vida()
-                self.float_texts.append(
-                    FloatingText(f"+{int(self.player.vida * 0.1)}", self.x_player, 200, (80, 255, 120))
-                )
-                
+            self.handle_troll_heal()
             return
 
         win = (
@@ -94,138 +112,91 @@ class CombatState:
         )
 
         if win:
-
-            ataque = self.player.Atacar()
-            resultado = self.enemy.Recibir_daño(ataque)
-
-            self.enemy.anim_timer = 15
-            
-
-            if resultado == "miss":
-                self.enemy.anim_state = "miss"
-
-                self.float_texts.append(
-                    FloatingText("MISS", self.x_enemy, 200, (255, 255, 255))
-                )
-            elif resultado == "Charged":
-
-                self.enemy.anim_state = "hurt"
-
-                self.float_texts.append(
-                    FloatingText(f"-{int(ataque)}", self.x_enemy, 200, (255, 80, 80))
-                )
-                self.add_delayed_event(20, lambda: self.float_texts.append(
-                    FloatingText("Cargando", self.x_enemy, 200, (255, 255, 80))
-                ))
-
-            else:
-                self.enemy.anim_state = "hurt"
-
-                self.float_texts.append(
-                   FloatingText(f"-{int(ataque)}", self.x_enemy, 200, (255, 80, 80))
-                )
-     
-
-            if self.enemy.nombre == "Dragon":
-                self.player.Recibir_daño(ataque * 0.1)
-                self.float_texts.append(
-                    FloatingText(f"-{int(ataque * 0.1)}", self.x_player, 200, (255, 80, 80))
-                )
-            
-            if self.player.nombre == "Vampiro":
-                self.player.Recuperar_vida(ataque)
-                self.float_texts.append(
-                    FloatingText(f"+{int(ataque * 0.25)}", self.x_player, 200, (80, 255, 120))
-                )
-
+            self.atacar(self.player, self.enemy, self.x_enemy)
             self.result_text = "Golpeas!"
         else:
-
-            ataque = self.enemy.Atacar()
-            resultado = self.player.Recibir_daño(ataque)
-            self.player.anim_timer = 15
-
-           
-
-            if resultado == "miss":
-                self.player.anim_state = "miss"
-
-                self.float_texts.append(
-                    FloatingText("MISS", self.x_player, 200, (255, 255, 255))
-                )
-            elif resultado == "Charged":
-
-                self.player.anim_state = "hurt"
-
-                self.float_texts.append(
-                    FloatingText(f"-{int(ataque)}", self.x_player, 200, (255, 80, 80))
-                )
-                self.add_delayed_event(20, lambda: self.float_texts.append(
-                    FloatingText("Cargando", self.x_player, 200, (255, 255, 80))
-                ))
-            else:
-                self.player.anim_state = "hurt"
-
-                self.float_texts.append(
-                   FloatingText(f"-{int(ataque)}", self.x_player, 200, (255, 80, 80))
-                )
-
-            if self.player.nombre == "Dragon":
-                self.enemy.Recibir_daño(ataque * 0.1)
-                self.float_texts.append(
-                    FloatingText(f"-{int(ataque * 0.1)}", self.x_enemy, 200, (255, 80, 80))
-                ) 
-
-            if self.enemy.nombre == "Vampiro":
-                self.enemy.Recuperar_vida(ataque)
-                self.float_texts.append(
-                    FloatingText(f"+{int(ataque * 0.25)}", self.x_enemy, 200, (80, 255, 120))
-                )
-
+            self.atacar(self.enemy, self.player, self.x_player)
             self.result_text = "Te golpean!"
 
         self.check_end()
 
+    # -------------------------
+    # 💥 ATAQUE
+    # -------------------------
+    def atacar(self, atacante, objetivo, x_pos):
+
+        ataque = atacante.Atacar()
+        resultado = objetivo.Recibir_daño(ataque)
+
+        objetivo.anim_timer = 15
+
+        if resultado == "miss":
+            objetivo.anim_state = "miss"
+            self.float_texts.append(FloatingText("MISS", x_pos, 200, (255,255,255)))
+
+        else:
+            objetivo.anim_state = "hurt"
+            self.float_texts.append(FloatingText(f"-{int(ataque)}", x_pos, 200, (255,80,80)))
+
+            if resultado == "Charged":
+                self.add_delayed_event(20, lambda:
+                    self.float_texts.append(FloatingText("Cargando", x_pos, 200, (255,255,80)))
+                )
+
+        if objetivo.nombre == "Dragon":
+            daño = ataque * 0.1
+            atacante.Recibir_daño(daño)
+            self.float_texts.append(FloatingText(f"-{int(daño)}", self.get_x(atacante), 200, (255,80,80)))
+
+        if atacante.nombre == "Vampiro":
+            heal = ataque * 0.25
+            atacante.Recuperar_vida(heal)
+            self.float_texts.append(FloatingText(f"+{int(heal)}", self.get_x(atacante), 200, (80,255,120)))
+
+    def get_x(self, carta):
+        return self.x_player if carta == self.player else self.x_enemy
+
+    # -------------------------
+    # 🧪 EFECTOS
+    # -------------------------
+    def handle_troll_heal(self):
+
+        for carta, x in [(self.player, self.x_player), (self.enemy, self.x_enemy)]:
+            if carta.nombre == "Troll":
+                heal = carta.vida * 0.1
+                carta.Recuperar_vida()
+                self.float_texts.append(FloatingText(f"+{int(heal)}", x, 200, (80,255,120)))
+
+    # -------------------------
+    # 🏁 FIN
+    # -------------------------
     def check_end(self):
 
         if self.enemy.vida <= 0:
 
-            
-            self.combate_terminado = True
+            from states.victory import VictoryState
             recompensa = Cofre(random.choice(["C", "B", "A", "D"])).generar_contenido()
+            self.player.vida = self.player.vida_max  
+            self.game.change_state(
+                VictoryState(self.game, self.player, self.enemy, recompensa)
+            )
+            
 
-            print("Recompensa obtenida:", recompensa)
-            if isinstance(recompensa, int):
-                self.game.oro += recompensa
-            elif isinstance(recompensa, str):
-                if recompensa in self.game.inventario:
-                    self.game.inventario[recompensa] += 1
-                else:
-                    self.game.inventario[recompensa] = 1
-            else:
-                self.game.mazo.append(recompensa)
-
-            self.player.vida = self.player.vida_max
-
-            self.result_text = "Ganaste!"
-            guardar_juego(self.game)
-        
         elif self.player.vida <= 0:
             self.combate_terminado = True
-
-            self.game.mazo.remove(self.player)
+            self.waiting_continue = True  
             self.result_text = "Perdiste!"
+
+            if self.player in self.game.mazo:
+                self.game.mazo.remove(self.player)
+
             guardar_juego(self.game)
 
-            if len(self.game.mazo) > 0:
-                from states.Selecc_Cart import SeleccionCartaState
-                self.game.change_state(SeleccionCartaState(self.game, enemy=self.enemy)
-)
-            else:
-                from states.menu import MenuState
-                self.game.change_state(MenuState(self.game))
-
+    # -------------------------
+    # 🔄 UPDATE
+    # -------------------------
     def update(self):
+
         for carta in [self.player, self.enemy]:
 
             if carta.anim_timer > 0:
@@ -242,55 +213,88 @@ class CombatState:
 
         self.float_texts = [t for t in self.float_texts if t.alive()]
 
-        for event in self.delayed_events:
-            event["timer"] -= 1
-
-            if event["timer"] <= 0:
-                event["func"]()
+        for e in self.delayed_events:
+            e["timer"] -= 1
+            if e["timer"] <= 0:
+                e["func"]()
 
         self.delayed_events = [e for e in self.delayed_events if e["timer"] > 0]
+    
 
+    def usar_pocion(self, pocion, carta):
+
+        # validar existencia
+        if pocion not in self.game.inventario:
+            return
+
+        if self.game.inventario[pocion] <= 0:
+            return
+
+        heal=carta.Pocion_Use(pocion)
+
+        # consumir
+        self.game.inventario[pocion] -= 1
+
+        # feedback visual
+        self.float_texts.append(
+            FloatingText(f"+{heal}", self.get_x(carta), 200, (80,255,120))
+        )
+
+        carta.anim_state = "heal"
+        carta.anim_timer = 20
+
+    # -------------------------
+    # 🎨 DRAW
+    # -------------------------
     def draw(self, screen):
-        screen.fill((30, 30, 30))
 
+        screen.fill((30, 30, 30))
         width = screen.get_width()
 
-        font= "./Ui/fonts/DeutscheZierschrift.ttf" 
-        font_anunce = pygame.font.Font(font, 40)
+        font_path = "./Ui/fonts/DeutscheZierschrift.ttf"
+        font_ui = pygame.font.Font(font_path, 40)
+        
+
+        draw_text(screen, self.result_text, font_ui, center=True, pos=(width//2, 50))
 
 
-        draw_text(screen,  self.result_text, font_anunce, center=True, pos=(width//2, 50))
-        if self.result_text == "Ganaste!":
-            draw_text(screen, "Presiona Enter para volver al menu", font_anunce, center=True, pos=(width//2, 750))
+        if self.combate_terminado:
 
+            if self.waiting_continue:
+                draw_text(screen, "ENTER continuar | ESC salir",
+                          font_ui, center=True, pos=(width//2, 750))
+            else:
+                draw_text(screen, "ENTER o ESC para volver al menú",
+                          font_ui, center=True, pos=(width//2, 750))
 
         self.x_player = width * 0.25
         self.x_enemy = width * 0.75
 
-        CARD_W = 200  
-
-        draw_card(screen, self.player, self.x_player - CARD_W//2, 150)
-        draw_card(screen, self.enemy, self.x_enemy - CARD_W//2, 150)
+        draw_card(screen, self.player, self.x_player - 100, 150)
+        draw_card(screen, self.enemy, self.x_enemy - 100, 150)
 
         for i, op in enumerate(self.options):
-            offset = 0
-            if self.selected_player == i:
-                offset = -30  # 👈 sube 20px
-            draw_options(screen, op, 120 + i * 90, 500, offset)
-            
-        for i, op in enumerate(self.options):
-            offset = 0
-            if self.selected_enemy == i:
-                offset = -30  # 👈 sube 20px
-            draw_options(screen, op, 620 + i * 90, 500, offset)
+            offset = -30 if self.selected_player == i else 0
+            draw_options(screen, op, 120 + i * 90, 480, offset, player=True)
 
+        for i, op in enumerate(self.options):
+            offset = -30 if self.selected_enemy == i else 0
+            draw_options(screen, op, 620 + i * 90, 480, offset)
 
         for t in self.float_texts:
             t.draw(screen)
 
-    def add_delayed_event(self, delay, func):
 
-        self.delayed_events.append({
-            "timer": delay,
-            "func": func
-        })
+        #pociones
+        items = list(self.game.inventario.items())
+        for i, (item, cantidad) in enumerate(items):
+            if cantidad > 0:
+                draw_pocion(screen, item, 50 + i * 60, 680, cantidad,i)
+
+           
+
+    
+
+    
+    def add_delayed_event(self, delay, func):
+        self.delayed_events.append({"timer": delay, "func": func})
