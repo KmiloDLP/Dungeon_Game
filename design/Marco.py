@@ -32,6 +32,7 @@ class Marco:
 
         nombre_img = f"{nombre.lower()}.png"
         self.ruta_imagen = os.path.join(img_dir, "cartas", nombre_img)
+        self.info_img = os.path.join(img_dir, "info_img", f"{nombre.lower()}_info.png")
 
         if not os.path.exists(self.ruta_imagen):
             print(f"[WARN] No existe imagen para {nombre}")

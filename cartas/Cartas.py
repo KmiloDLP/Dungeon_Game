@@ -10,6 +10,8 @@ class Carta:
         self.vida = vida
         self.vida_max = vida
         self.atk = atk
+        self.atk_origin= atk
+
 
         self.anim_state = "idle"
         self.anim_timer = 0
@@ -64,6 +66,10 @@ class Carta:
             curacion = self.vida_max - self.vida
         self.vida = min(self.vida + curacion, self.vida_max)
         return curacion
+    
+    def victori(self):
+        self.vida = self.vida_max
+        self.atk = self.atk_origin
 
     @staticmethod
     def calcular_rank_atk(atk):

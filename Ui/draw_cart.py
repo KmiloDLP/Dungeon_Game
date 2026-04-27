@@ -47,10 +47,10 @@ def draw_text(surface, text, font,col=(255,255,255), out_col=(0,0,0),pos=(0,0), 
     surface.blit(main_surf, rect)
 
 
-def draw_card(screen, carta, x, y):
+def draw_card(screen, carta, x, y, info=False, scale=1):
     import random  # necesario para shake
 
-    width, height = 200, 300
+    width, height = int(200 * scale), int(300 * scale)
 
     # -------------------------
     # 🎬 ANIMACIÓN (SHAKE / HEAL)
@@ -88,7 +88,8 @@ def draw_card(screen, carta, x, y):
     # -------------------------
     # 🖼️ IMAGEN CENTRAL
     # -------------------------
-    img = load_image(carta.marco.ruta_imagen)
+    ruta_img = carta.marco.info_img if info else carta.marco.ruta_imagen
+    img = load_image(ruta_img)
 
     w, h = img.get_size()
     img_scale = min(140 / w, 300 / h)
@@ -135,11 +136,16 @@ def draw_card(screen, carta, x, y):
         (x + width - 32 + offset_x, y + height - 25 + offset_y)
     )
 
-def draw_item(screen, item, x, y, cantidad, img_size=None):
+def draw_item(screen, item, x, y, cantidad, img_size=None, info=False, scale=1):
 
     base_dir = os.path.dirname(__file__)
+    
     img_dir = os.path.join(base_dir, "items")
     ruta_item = os.path.join(img_dir, f"{item}.png")
+
+    if info:
+        img_dir = os.path.join(base_dir, "items_info")
+        ruta_item = os.path.join(img_dir, f"{item}_info.png")
 
     try:
         img = load_image(ruta_item)
@@ -148,6 +154,8 @@ def draw_item(screen, item, x, y, cantidad, img_size=None):
         return
 
     ITEM_W, ITEM_H = img_size if img_size else (200, 300)
+    ITEM_W = int(ITEM_W * scale)
+    ITEM_H = int(ITEM_H * scale)
     img = pygame.transform.scale(img, (ITEM_W, ITEM_H))
     screen.blit(img, (x, y))
 

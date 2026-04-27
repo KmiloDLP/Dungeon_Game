@@ -176,7 +176,7 @@ class CombatState:
 
             from states.victory import VictoryState
             recompensa = Cofre(random.choice(["C", "B", "A", "D"])).generar_contenido()
-            self.player.vida = self.player.vida_max  
+            self.player.victori()
             self.game.change_state(
                 VictoryState(self.game, self.player, self.enemy, recompensa)
             )

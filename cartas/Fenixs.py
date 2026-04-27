@@ -20,7 +20,9 @@ class Fenixs(Carta):
         if self.vida <= 0:
 
             if not self.renacido:
+                self.anim_state = "heal"
                 self.vida = self.vida_max * 0.5
+                self.atk *= 0.3 
                 self.renacido = True
                 print(f"{self.nombre} ha renacido con {self.vida} de vida")
             else:
@@ -29,9 +31,3 @@ class Fenixs(Carta):
         else:
             print(f"{self.nombre} ha resibido {daño} de daño")
 
-    def Atacar(self):
-        ataque = self.atk
-        if self.renacido:
-            ataque *= 2
-        
-        return math.ceil(ataque)

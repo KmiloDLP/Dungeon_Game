@@ -1,78 +1,81 @@
 import pygame
-from Ui.draw_cart import draw_card, draw_text
+from Ui.draw_cart import draw_card, draw_text, font_ui
+
 
 class MazoState:
     def __init__(self, game):
         self.game = game
-        self.font = pygame.font.Font(None, 40)
 
         self.scroll = 0
         self.columnas = 3
         self.filas_visibles = 2
 
         self.CARD_W, self.CARD_H = 200, 300
-        self.ESP_X, self.ESP_Y = 20, 20
-        self.START_X, self.START_Y = 100, 120
+        self.ESP_Y = 20
+        self.START_Y = 120
+
+        self.selected = 0
+        self.show_info = False
+
+        # 🎬 animación
+        self.anim_scale = 1
+        self.anim_target = 1
 
     def handle_event(self, event):
         if event.type == pygame.KEYDOWN:
 
-            if event.key == pygame.K_DOWN:
-                self.scroll += 1
+            if event.key == pygame.K_RIGHT:
+                self.selected = min(self.selected + 1, len(self.game.mazo) - 1)
+
+            elif event.key == pygame.K_LEFT:
+                self.selected = max(self.selected - 1, 0)
+
+            elif event.key == pygame.K_DOWN:
+                self.selected = min(self.selected + self.columnas, len(self.game.mazo) - 1)
 
             elif event.key == pygame.K_UP:
-                self.scroll = max(0, self.scroll - 1)
+                self.selected = max(self.selected - self.columnas, 0)
+
+            elif event.key == pygame.K_RETURN:
+                self.show_info = not self.show_info
+                self.anim_scale = 0.8  # 👈 efecto flip
 
             elif event.key == pygame.K_ESCAPE:
                 from states.menu import MenuState
                 self.game.change_state(MenuState(self.game))
 
     def update(self):
-        pass
+        # 🎬 animación suave
+        self.anim_scale += (1 - self.anim_scale) * 0.15
 
     def draw(self, screen):
         screen.fill((20, 20, 20))
-
         width = screen.get_width()
 
-        # Título centrado
-        font_path = "./Ui/fonts/DeutscheZierschrift.ttf"
-        self.font = pygame.font.Font(font_path, 40)
-
-        titulo = "Mazo"
-
-        draw_text(
-                screen,
-                titulo,
-                self.font,
-                col=(255,255,255),
-                center=True,
-                pos=(width//2, 50)
-            )
-
+        draw_text(screen, "Mazo", font_ui, center=True, pos=(width//2, 50))
+        draw_text(screen, "[ENTER] Ver info    [ESC] Salir", font_ui, center=True, pos=(width//2, 750))
 
         cartas = self.game.mazo
 
-        inicio = self.scroll * self.columnas
-        fin = inicio + self.filas_visibles * self.columnas
-        visibles = cartas[inicio:fin]
+        columnas_x = [width * 0.25, width * 0.5, width * 0.75]
 
-        # 📌 posiciones de columnas (1/4, 2/4, 3/4)
-        columnas_x = [
-            width * 0.25,
-            width * 0.5,
-            width * 0.75
-        ]
-
-        for i, carta in enumerate(visibles):
+        for i, carta in enumerate(cartas):
             col = i % self.columnas
             fila = i // self.columnas
 
             x = columnas_x[col] - self.CARD_W // 2
             y = self.START_Y + fila * (self.CARD_H + self.ESP_Y)
 
-            draw_card(screen, carta, x, y)
+            seleccionado = (i == self.selected)
 
-        # indicador de scroll
-        info = self.font.render(f"{inicio+1}-{min(fin, len(cartas))}/{len(cartas)}", True, (255,255,255))
-        screen.blit(info, (50, 40))
+            # 🎬 animación solo en la seleccionada
+            scale = self.anim_scale if seleccionado else 1
+
+            draw_card(
+                screen,
+                carta,
+                x,
+                y,
+                info=(seleccionado and self.show_info),
+                scale=scale
+            )
