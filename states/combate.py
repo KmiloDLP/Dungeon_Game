@@ -287,9 +287,16 @@ class CombatState:
 
         #pociones
         items = list(self.game.inventario.items())
-        for i, (item, cantidad) in enumerate(items):
+        espacios_ocupados = 0  
+
+        for item, cantidad in items:
             if cantidad > 0:
-                draw_pocion(screen, item, 50 + i * 60, 680, cantidad,i)
+                
+                pos_x = 50 + espacios_ocupados * 60
+                draw_pocion(screen, item, pos_x, 20, cantidad)
+                
+                espacios_ocupados += 1
+
 
            
 

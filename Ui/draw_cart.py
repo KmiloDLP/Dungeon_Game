@@ -185,7 +185,7 @@ def draw_options(screen, item, x, y, offset_y=0, player=False):
     screen.blit(img, (x, y + offset_y))
 
 
-def draw_pocion(screen, pocion, x, y, cantidad,i):
+def draw_pocion(screen, pocion, x, y, cantidad,):
 
     base_dir = os.path.dirname(__file__)
     img_dir = os.path.join(base_dir, "items")
@@ -201,9 +201,14 @@ def draw_pocion(screen, pocion, x, y, cantidad,i):
     img = pygame.transform.scale(img, (ITEM_W, ITEM_H))
     screen.blit(img, (x, y))
 
-    Teclas=["Q","W","E","R"]
+    Teclas={
+        "Minipocion":"Q",
+        "Pocion":"W",
+        "Superpocion":"E",
+        "Hiperpocion":"R"}
+    
 
-    draw_text(screen,Teclas[i],font_ui_mini, (255, 255, 255),(0, 0, 0), (x + 5 , y + ITEM_H + 10 ))
+    draw_text(screen,Teclas.get(pocion),font_ui_mini, (255, 255, 255),(0, 0, 0), (x + 5 , y + ITEM_H + 10 ))
     draw_text(screen,f"x{cantidad}",font_stat, (255, 255, 255),(0, 0, 0), (x + 28 , y + ITEM_H - 20 ))
 
 

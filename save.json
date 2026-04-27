@@ -8,13 +8,6 @@
             "atk": 1000
         },
         {
-            "tipo": "Ogros",
-            "nombre": "Ogro",
-            "vida": 166,
-            "vida_max": 166,
-            "atk": 16
-        },
-        {
             "tipo": "Lichs",
             "nombre": "Lich",
             "vida": 86,
@@ -69,13 +62,20 @@
             "vida": 106,
             "vida_max": 106,
             "atk": 15
+        },
+        {
+            "tipo": "Dragones",
+            "nombre": "Dragon",
+            "vida": 112,
+            "vida_max": 112,
+            "atk": 31
         }
     ],
     "inventario": {
         "Minipocion": 2,
-        "Pocion": 7,
+        "Pocion": 0,
         "Superpocion": 0,
-        "Hiperpocion": 10
+        "Hiperpocion": 1
     },
     "oro": 10470
 }
