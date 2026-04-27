@@ -1,5 +1,5 @@
 import pygame
-from Ui.draw_cart import draw_item
+from Ui.draw_cart import draw_item, draw_text
 
 class InventarioState:
     def __init__(self, game):
@@ -20,8 +20,20 @@ class InventarioState:
 
         width = screen.get_width()
 
-        titulo = self.font.render("Inventario", True, (255,255,255))
-        screen.blit(titulo, (width//2 - titulo.get_width()//2, 20))
+        font_path = "./Ui/fonts/DeutscheZierschrift.ttf"
+        self.font = pygame.font.Font(font_path, 40)
+
+        titulo = "Inventario"
+
+        draw_text(
+                screen,
+                titulo,
+                self.font,
+                col=(255,255,255),
+                center=True,
+                pos=(width//2, 50)
+            )
+
 
         start_x = width // 2 - (4 * 200 + (4 - 1) * 40) // 2
         start_y = 100

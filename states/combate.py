@@ -3,8 +3,7 @@ from turtle import width
 import pygame
 import random
 from Ui.FloatingText import FloatingText
-from Ui.draw_cart import draw_card
-from Ui.draw_cart import draw_options
+from Ui.draw_cart import draw_card, draw_options, draw_text
 from design.Cofre import Cofre
 from system.Save import guardar_juego
 
@@ -63,6 +62,7 @@ class CombatState:
     def turno(self, eleccion):
 
         if self.combate_terminado:
+
             print("Combate terminado, presiona Enter para volver al menú")
             return
         
@@ -190,12 +190,11 @@ class CombatState:
 
         if self.enemy.vida <= 0:
 
-            print("Enemy defeated!")
+            
             self.combate_terminado = True
             recompensa = Cofre(random.choice(["C", "B", "A", "D"])).generar_contenido()
 
             print("Recompensa obtenida:", recompensa)
-
             if isinstance(recompensa, int):
                 self.game.oro += recompensa
             elif isinstance(recompensa, str):
@@ -256,8 +255,14 @@ class CombatState:
 
         width = screen.get_width()
 
-        texto = self.font.render(self.result_text, True, (255,255,255))
-        screen.blit(texto, (width//2 - texto.get_width()//2, 50))
+        font= "./Ui/fonts/DeutscheZierschrift.ttf" 
+        font_anunce = pygame.font.Font(font, 40)
+
+
+        draw_text(screen,  self.result_text, font_anunce, center=True, pos=(width//2, 50))
+        if self.result_text == "Ganaste!":
+            draw_text(screen, "Presiona Enter para volver al menu", font_anunce, center=True, pos=(width//2, 750))
+
 
         self.x_player = width * 0.25
         self.x_enemy = width * 0.75

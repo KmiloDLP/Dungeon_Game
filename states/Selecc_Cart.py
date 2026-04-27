@@ -1,5 +1,5 @@
 import pygame
-from Ui.draw_cart import draw_card
+from Ui.draw_cart import draw_card, draw_text
 
 class SeleccionCartaState:
     def __init__(self, game, enemy=None, volver_a_combate=False):
@@ -58,14 +58,23 @@ class SeleccionCartaState:
     def update(self):
         pass
 
-    # ✅ AHORA SÍ está dentro de la clase
     def draw(self, screen):
         screen.fill((20, 20, 20))
 
         width = screen.get_width()
+        font_path = "./Ui/fonts/DeutscheZierschrift.ttf"
+        self.font = pygame.font.Font(font_path, 40)
 
-        titulo = self.font.render("Selecciona una carta", True, (255,255,255))
-        screen.blit(titulo, (width//2 - titulo.get_width()//2, 40))
+        titulo = "Selecciona una cartass"
+
+        draw_text(
+                screen,
+                titulo,
+                self.font,
+                col=(255,255,255),
+                center=True,
+                pos=(width//2, 50)
+            )
 
         cartas = self.game.mazo
 

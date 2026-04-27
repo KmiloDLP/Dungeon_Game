@@ -25,12 +25,25 @@ def load_image(path):
         image_cache[path] = pygame.image.load(path).convert_alpha()
     return image_cache[path]
 
-def draw_text_outline(surface, text, font, col, out_col, pos):
+def draw_text(surface, text, font,
+              col=(255,255,255), out_col=(0,0,0),
+              pos=(0,0), center=False):
+
+    main_surf = font.render(text, True, col)
+    rect = main_surf.get_rect()
+
+    if center:
+        rect.center = pos
+    else:
+        rect.topleft = pos
+
+    # contorno
     for dx, dy in [(-1, -1), (1, -1), (-1, 1), (1, 1)]:
         out_surf = font.render(text, True, out_col)
-        surface.blit(out_surf, (pos[0] + dx, pos[1] + dy))
-    main_surf = font.render(text, True, col)
-    surface.blit(main_surf, pos)
+        surface.blit(out_surf, rect.move(dx, dy))
+
+    surface.blit(main_surf, rect)
+
 
 def draw_card(screen, carta, x, y):
     import random  # necesario para shake
@@ -102,7 +115,7 @@ def draw_card(screen, carta, x, y):
     # -------------------------
     color_contorno = (0, 0, 0)
 
-    draw_text_outline(
+    draw_text(
         screen,
         f"{carta.vida}",
         font_stat,
@@ -111,7 +124,7 @@ def draw_card(screen, carta, x, y):
         (x + 15 + offset_x, y + height - 25 + offset_y)
     )
 
-    draw_text_outline(
+    draw_text(
         screen,
         f"{carta.atk}",
         font_stat,
@@ -136,7 +149,7 @@ def draw_item(screen, item, x, y, cantidad):
     img = pygame.transform.scale(img, (ITEM_W, ITEM_H))
     screen.blit(img, (x, y))
 
-    draw_text_outline(
+    draw_text(
        screen,"x"+ f"{cantidad}",font_stat, (255, 255, 255),(0, 0, 0), (x + ITEM_W - 150, y + ITEM_H - 40)
     )
 
@@ -156,3 +169,4 @@ def draw_options(screen, item, x, y, offset_y=0):
     img = pygame.transform.scale(img, (ITEM_W, ITEM_H))
 
     screen.blit(img, (x, y + offset_y))
+

@@ -1,5 +1,5 @@
 import pygame
-from Ui.draw_cart import draw_card
+from Ui.draw_cart import draw_card, draw_text
 
 class MazoState:
     def __init__(self, game):
@@ -36,8 +36,20 @@ class MazoState:
         width = screen.get_width()
 
         # Título centrado
-        titulo = self.font.render("Mazo", True, (255,255,255))
-        screen.blit(titulo, (width//2 - titulo.get_width()//2, 40))
+        font_path = "./Ui/fonts/DeutscheZierschrift.ttf"
+        self.font = pygame.font.Font(font_path, 40)
+
+        titulo = "Mazo"
+
+        draw_text(
+                screen,
+                titulo,
+                self.font,
+                col=(255,255,255),
+                center=True,
+                pos=(width//2, 50)
+            )
+
 
         cartas = self.game.mazo
 

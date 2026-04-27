@@ -1,67 +1,11 @@
 {
     "mazo": [
         {
-            "tipo": "Fantasmas",
-            "nombre": "Fantasma",
-            "vida": 166,
-            "vida_max": 166,
-            "atk": 37
-        },
-        {
-            "tipo": "Fantasmas",
-            "nombre": "Fantasma",
-            "vida": 148,
-            "vida_max": 148,
-            "atk": 30
-        },
-        {
-            "tipo": "Cristalize",
-            "nombre": "Cristalize",
-            "vida": 119,
-            "vida_max": 119,
-            "atk": 16
-        },
-        {
-            "tipo": "Golems",
-            "nombre": "Golem",
-            "vida": 88,
-            "vida_max": 88,
-            "atk": 13
-        },
-        {
-            "tipo": "Vampiros",
-            "nombre": "Vampiro",
-            "vida": 110,
-            "vida_max": 110,
-            "atk": 15
-        },
-        {
-            "tipo": "Ogros",
-            "nombre": "Ogro",
-            "vida": 113,
-            "vida_max": 113,
-            "atk": 34
-        },
-        {
-            "tipo": "Vampiros",
-            "nombre": "Vampiro",
-            "vida": 70,
-            "vida_max": 70,
-            "atk": 19
-        },
-        {
             "tipo": "Dragones",
             "nombre": "Dragon",
-            "vida": 92,
-            "vida_max": 92,
-            "atk": 31
-        },
-        {
-            "tipo": "Lichs",
-            "nombre": "Lich",
-            "vida": 37,
-            "vida_max": 37,
-            "atk": 38
+            "vida": 1000,
+            "vida_max": 1000,
+            "atk": 1000
         },
         {
             "tipo": "Trolls",
@@ -90,13 +34,90 @@
             "vida": 79,
             "vida_max": 79,
             "atk": 33
+        },
+        {
+            "tipo": "Vampiros",
+            "nombre": "Vampiro",
+            "vida": 74,
+            "vida_max": 74,
+            "atk": 25
+        },
+        {
+            "tipo": "Dragones",
+            "nombre": "Dragon",
+            "vida": 68,
+            "vida_max": 68,
+            "atk": 37
+        },
+        {
+            "tipo": "Golems",
+            "nombre": "Golem",
+            "vida": 76,
+            "vida_max": 76,
+            "atk": 32
+        },
+        {
+            "tipo": "Trolls",
+            "nombre": "Troll",
+            "vida": 90,
+            "vida_max": 90,
+            "atk": 11
+        },
+        {
+            "tipo": "Vampiros",
+            "nombre": "Vampiro",
+            "vida": 111,
+            "vida_max": 111,
+            "atk": 14
+        },
+        {
+            "tipo": "Cristalize",
+            "nombre": "Cristalize",
+            "vida": 156,
+            "vida_max": 156,
+            "atk": 40
+        },
+        {
+            "tipo": "Lichs",
+            "nombre": "Lich",
+            "vida": 76,
+            "vida_max": 76,
+            "atk": 44
+        },
+        {
+            "tipo": "Trolls",
+            "nombre": "Troll",
+            "vida": 112,
+            "vida_max": 112,
+            "atk": 19
+        },
+        {
+            "tipo": "Lichs",
+            "nombre": "Lich",
+            "vida": 52,
+            "vida_max": 52,
+            "atk": 36
+        },
+        {
+            "tipo": "Fenixs",
+            "nombre": "Fenix",
+            "vida": 83,
+            "vida_max": 83,
+            "atk": 13
+        },
+        {
+            "tipo": "Ogros",
+            "nombre": "Ogro",
+            "vida": 64,
+            "vida_max": 64,
+            "atk": 38
         }
     ],
     "inventario": {
-        "Superpocion": 10,
-        "Hiperpocion": 5,
-        "Pocion": 3,
+        "Superpocion": 11,
+        "Hiperpocion": 7,
+        "Pocion": 4,
         "Minipocion": 4
     },
-    "oro": 811
+    "oro": 1285
 }
