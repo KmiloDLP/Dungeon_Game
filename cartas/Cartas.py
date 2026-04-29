@@ -71,6 +71,26 @@ class Carta:
         self.vida = self.vida_max
         self.atk = self.atk_origin
 
+    def obtener_rango_venta(self):
+        """Obtiene el rango de venta basado en ATK y HP (el más alto)"""
+        rank_atk = self.calcular_rank_atk(self.atk)
+        rank_hp = self.calcular_rank_hp(self.vida_max)
+        
+        # Comparar y retornar el rango más alto
+        rangos_valor = {"A": 4, "B": 3, "C": 2, "D": 1}
+        return max([rank_atk, rank_hp], key=lambda r: rangos_valor[r])
+    
+    def obtener_valor_venta(self):
+        """Retorna el valor en oro según el rango"""
+        rango = self.obtener_rango_venta()
+        valores = {
+            "A": 100,
+            "B": 50,
+            "C": 30,
+            "D": 20
+        }
+        return valores.get(rango, 20)
+
     @staticmethod
     def calcular_rank_atk(atk):
         if atk >= 46:

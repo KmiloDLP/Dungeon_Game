@@ -20,6 +20,8 @@ except Exception as e:
     font_title = pygame.font.SysFont("arial", 18, bold=True)
     font_rank = pygame.font.SysFont("arial", 18, bold=True)
     font_stat = pygame.font.SysFont("arial", 18, bold=True)
+    font_ui = pygame.font.SysFont("arial", 40, bold=True)
+    font_ui_mini = pygame.font.SysFont("arial", 18, bold=True)
 
 count=0
 image_cache = {}

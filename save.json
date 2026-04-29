@@ -8,25 +8,95 @@
             "atk": 500
         },
         {
-            "tipo": "Golems",
-            "nombre": "Golem",
-            "vida": 1000,
-            "vida_max": 1000,
-            "atk": 10
+            "tipo": "Trolls",
+            "nombre": "Troll",
+            "vida": 170,
+            "vida_max": 170,
+            "atk": 46
         },
         {
-            "tipo": "Lichs",
-            "nombre": "Lich",
-            "vida": 32,
-            "vida_max": 32,
-            "atk": 32
+            "tipo": "Golems",
+            "nombre": "Golem",
+            "vida": 146,
+            "vida_max": 146,
+            "atk": 39
+        },
+        {
+            "tipo": "Fantasmas",
+            "nombre": "Fantasma",
+            "vida": 140,
+            "vida_max": 140,
+            "atk": 49
+        },
+        {
+            "tipo": "Cristalize",
+            "nombre": "Cristalize",
+            "vida": 175,
+            "vida_max": 175,
+            "atk": 27
+        },
+        {
+            "tipo": "Vampiros",
+            "nombre": "Vampiro",
+            "vida": 96,
+            "vida_max": 96,
+            "atk": 28
+        },
+        {
+            "tipo": "Trolls",
+            "nombre": "Troll",
+            "vida": 65,
+            "vida_max": 65,
+            "atk": 48
+        },
+        {
+            "tipo": "Dragones",
+            "nombre": "Dragon",
+            "vida": 123,
+            "vida_max": 123,
+            "atk": 12
+        },
+        {
+            "tipo": "Vampiros",
+            "nombre": "Vampiro",
+            "vida": 68,
+            "vida_max": 68,
+            "atk": 41
+        },
+        {
+            "tipo": "Vampiros",
+            "nombre": "Vampiro",
+            "vida": 148,
+            "vida_max": 148,
+            "atk": 36
+        },
+        {
+            "tipo": "Dragones",
+            "nombre": "Dragon",
+            "vida": 62,
+            "vida_max": 62,
+            "atk": 17
+        },
+        {
+            "tipo": "Fenixs",
+            "nombre": "Fenix",
+            "vida": 118,
+            "vida_max": 118,
+            "atk": 14
+        },
+        {
+            "tipo": "Dragones",
+            "nombre": "Dragon",
+            "vida": 124,
+            "vida_max": 124,
+            "atk": 17
         }
     ],
     "inventario": {
         "Minipocion": 3,
-        "Pocion": 3,
+        "Pocion": 4,
         "Superpocion": 3,
         "Hiperpocion": 5
     },
-    "oro": 10626
+    "oro": 8386
 }
