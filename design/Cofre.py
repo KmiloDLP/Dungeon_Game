@@ -64,7 +64,7 @@ class Cofre:
         hp  = generar_stat(50, 200)
         atk = generar_stat(10, 50)
         deff = generar_stat(1, 30)
-        spd = generar_stat(10, 100)
+        spd = generar_stat(10, 50)
         mp  = generar_stat(100, 200)
 
   
@@ -81,7 +81,7 @@ class Cofre:
         }
 
         clase_obj = Classes[clase]
-        carta = clase_obj(clase, tipo, hp, mp, atk, deff, spd)
+        carta = clase_obj(tipo, hp, mp, atk, deff, spd)
 
 
         return carta

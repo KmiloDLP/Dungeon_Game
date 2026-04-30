@@ -11,7 +11,6 @@ class Marco:
         self.nombre = self.Assign_name(Class, Type)
 
         self.sprite = os.path.join(img_dir, "cartas", f"{Class.lower()}_{Type.lower()}.png")
-        print(f"{Class.lower()}_{Type.lower()}.png")
         self.fondo = os.path.join(img_dir, "fondos", f"{self.rank}.png")
         self.class_icon = os.path.join(img_dir, "Class", f"{Class}.png")
         self.type_icon = os.path.join(img_dir, "Types", f"{Type}.png")

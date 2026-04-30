@@ -3,8 +3,8 @@ from cartas.Cartas import Carta
 
 
 class Spirits(Carta):
-    def __init__(self, Class, Type, HP, MP, Atk, Def, Spd):
-        super().__init__("Spirit", vida, atk)
+    def __init__(self, Type, HP, MP, Atk, Def, Spd):
+        super().__init__("Spirit", Type, HP, MP, Atk, Def, Spd)
 
     def Recibir_daño(self, ataque):
 

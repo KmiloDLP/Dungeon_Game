@@ -81,18 +81,16 @@ def draw_card(screen, carta, x, y, info=False, scale=1):
     )
     screen.blit(fondo, (x + offset_x, y + offset_y))
 
-    # -------------------------
-    # 🏷️ NOMBRE
-    # -------------------------
+    # Name
+
     text_nombre = font_title.render(carta.Characteristics.nombre, True, (0, 0, 0))
     text_rect = text_nombre.get_rect(
-        center=(x + width // 2 + offset_x, y + int(20 * scale) + offset_y)
+        center=(x + width // 2 + offset_x - 25, y + int(20 * scale) + offset_y)
     )
     screen.blit(text_nombre, text_rect)
 
-    # -------------------------
-    # 🖼️ IMAGEN
-    # -------------------------
+    #  Sprit
+
     ruta_img = (
         carta.Characteristics.Info
         if info else carta.Characteristics.sprite
@@ -119,61 +117,33 @@ def draw_card(screen, carta, x, y, info=False, scale=1):
     )
     screen.blit(img, img_rect)
 
-    # -------------------------
-    # 🏅 RANK
-    # -------------------------
-    text_rank = font_rank.render(carta.Characteristics.rank, True, (0, 0, 0))
-    rank_rect = text_rank.get_rect(
-        center=(
-            x + width - int(30 * scale) + offset_x,
-            y + int(20 * scale) + offset_y
-        )
-    )
-    screen.blit(text_rank, rank_rect)
+    # Class Icon
+    class_icon_surf = load_image(carta.Characteristics.class_icon)
+    class_icon_scaled = pygame.transform.scale(class_icon_surf, (25, 25))
+    screen.blit(class_icon_scaled, (x + 8 + offset_x, y + height - 290 + offset_y))
 
-    # -------------------------
-    # 📊 STATS
-    # -------------------------
-    draw_text(
-        screen,
-        f"{carta.HP}",
-        font_stat,
-        (0, 255, 0),
-        (0, 0, 0),
-        (x + int(15 * scale) + offset_x, y + height - int(25 * scale) + offset_y)
-    )
+    # Type Icon
+    class_icon_surf = load_image(carta.Characteristics.type_icon)
+    class_icon_scaled = pygame.transform.scale(class_icon_surf, (30, 30))
+    screen.blit(class_icon_scaled, (x + 155 + offset_x, y + height - 293 + offset_y))
 
-    draw_text(
-        screen,
-        f"{carta.Atk}",
-        font_stat,
-        (255, 0, 0),
-        (0, 0, 0),
-        (x + width - int(35 * scale) + offset_x, y + height - int(25 * scale) + offset_y)
-    )
+    # RANK
 
-    # -------------------------
-    # 📊 STATS
-    # -------------------------
+    
+
+
+    # STATS
     color_contorno = (0, 0, 0)
 
-    draw_text(
-        screen,
-        f"{carta.HP}",
-        font_stat,
-        (0, 255, 0),
-        color_contorno,
-        (x + 15 + offset_x, y + height - 25 + offset_y)
-    )
+    #Vida
+    draw_text(screen,f"{carta.HP}",font_stat,(0, 255, 0),color_contorno,(x + 15 + offset_x, y + height - 25 + offset_y))
+    #Ataque
+    draw_text(screen,f"{carta.Atk}",font_stat,(255, 0, 0),color_contorno,(x + width - 32 + offset_x, y + height - 25 + offset_y))
+    #Defensa
+    draw_text(screen,f"{carta.Def}",font_stat,(0, 0, 255),color_contorno,(x + width - 25 + offset_x, y + height - 58 + offset_y))
+    #Speed
+    draw_text(screen,f"{carta.Spd}",font_stat,(255, 255, 255),color_contorno,(x + 5 + offset_x, y + height - 58 + offset_y))
 
-    draw_text(
-        screen,
-        f"{carta.Atk}",
-        font_stat,
-        (255, 0, 0),
-        color_contorno,
-        (x + width - 32 + offset_x, y + height - 25 + offset_y)
-    )
 
 def draw_item(screen, item, x, y, cantidad, img_size=None, info=False, scale=1):
 

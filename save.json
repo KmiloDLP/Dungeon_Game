@@ -11,7 +11,17 @@
         "Spd": 65
         },
         {
-        "Class": "Dragon",
+        "Class": "Golem",
+        "Type": "Tierra",
+
+        "HP": 150,
+        "MP": 150,
+        "Atk": 40,
+        "Def": 15,
+        "Spd": 65
+        },
+        {
+        "Class": "Drain",
         "Type": "Agua",
 
         "HP": 150,
@@ -21,7 +31,27 @@
         "Spd": 65
         },
         {
-        "Class": "Dragon",
+        "Class": "Immortal",
+        "Type": "Metal",
+
+        "HP": 150,
+        "MP": 150,
+        "Atk": 40,
+        "Def": 15,
+        "Spd": 65
+        },
+        {
+        "Class": "Regenerator",
+        "Type": "Luz",
+
+        "HP": 200,
+        "MP": 200,
+        "Atk": 50,
+        "Def": 30,
+        "Spd": 50
+        },
+        {
+        "Class": "Spirit",
         "Type": "Aire",
 
         "HP": 150,
@@ -31,7 +61,7 @@
         "Spd": 65
         },
         {
-        "Class": "Dragon",
+        "Class": "Warrior",
         "Type": "Oscuridad",
 
         "HP": 150,
@@ -41,8 +71,18 @@
         "Spd": 65
         },
         {
-        "Class": "Dragon",
-        "Type": "Tierra",
+        "Class": "Wizard",
+        "Type": "Planta",
+
+        "HP": 150,
+        "MP": 150,
+        "Atk": 40,
+        "Def": 15,
+        "Spd": 65
+        },
+        {
+        "Class": "Cristalize",
+        "Type": "Planta",
 
         "HP": 150,
         "MP": 150,
