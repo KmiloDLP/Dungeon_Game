@@ -1,38 +1,41 @@
 from cartas.Cristalize import Cristalize
-from cartas.Dragones import Dragones
-from cartas.Fantasmas import Fantasmas
-from cartas.Fenixs import Fenixs
+from cartas.Dragons import Dragons
+from cartas.Spirits import Spirits
+from cartas.Immortals import Immortals
 from cartas.Golems import Golems
-from cartas.Lichs import Lichs
-from cartas.Ogros import Ogros
-from cartas.Troll import Trolls
-from cartas.Vampiro import Vampiros
-
-
+from cartas.Wizards import Wizards
+from cartas.Warriors import Warriors
+from cartas.Regenerators import Regenerators
+from cartas.Drains import Drains
 
 
 def crear_carta_desde_dict(data):
+
     clases = {
-        "Golems": Golems,
-        "Lichs": Lichs,
-        "Fantasmas": Fantasmas,
-        "Fenixs": Fenixs,
-        "Ogros": Ogros,
-        "Trolls": Trolls,
-        "Vampiros": Vampiros,
         "Cristalize": Cristalize,
-        "Dragones": Dragones,    
+        "Dragon": Dragons,
+        "Spirit": Spirits,
+        "Immortal": Immortals,
+        "Golem": Golems,
+        "Wizard": Wizards,
+        "Warrior": Warriors,
+        "Regenerator": Regenerators,
+        "Drain": Drains,
     }
 
-    clase = clases.get(data["tipo"])
+    clase = clases.get(data["Class"])
 
-    if clase:
+    if not clase:
+        print(f"[WARN] Clase desconocida: {data.get('Class')}")
+        return None
 
-        if clase == Lichs:
-                carta = clase(data["vida_max"]*2, data["atk"]/2)
-        else:
-            carta = clase(data["vida_max"], data["atk"])
-            carta.vida = data["vida"]
-        return carta
+    carta = clase(
+        data["Type"],
+        data["HP"],   # ← antes Base_HP
+        data["MP"],
+        data["Atk"],
+        data["Def"],
+        data["Spd"]
+    )
 
-    return None
+    return carta

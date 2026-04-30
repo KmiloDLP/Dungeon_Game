@@ -1,96 +1,57 @@
 {
     "mazo": [
         {
-            "tipo": "Ogros",
-            "nombre": "Ogro",
-            "vida": 1000,
-            "vida_max": 1000,
-            "atk": 500
+        "Class": "Dragon",
+        "Type": "Fuego",
+
+        "HP": 150,
+        "MP": 150,
+        "Atk": 40,
+        "Def": 15,
+        "Spd": 65
         },
         {
-            "tipo": "Trolls",
-            "nombre": "Troll",
-            "vida": 170,
-            "vida_max": 170,
-            "atk": 46
+        "Class": "Dragon",
+        "Type": "Agua",
+
+        "HP": 150,
+        "MP": 150,
+        "Atk": 40,
+        "Def": 15,
+        "Spd": 65
         },
         {
-            "tipo": "Golems",
-            "nombre": "Golem",
-            "vida": 146,
-            "vida_max": 146,
-            "atk": 39
+        "Class": "Dragon",
+        "Type": "Aire",
+
+        "HP": 150,
+        "MP": 150,
+        "Atk": 40,
+        "Def": 15,
+        "Spd": 65
         },
         {
-            "tipo": "Fantasmas",
-            "nombre": "Fantasma",
-            "vida": 140,
-            "vida_max": 140,
-            "atk": 49
+        "Class": "Dragon",
+        "Type": "Oscuridad",
+
+        "HP": 150,
+        "MP": 150,
+        "Atk": 40,
+        "Def": 15,
+        "Spd": 65
         },
         {
-            "tipo": "Cristalize",
-            "nombre": "Cristalize",
-            "vida": 175,
-            "vida_max": 175,
-            "atk": 27
-        },
-        {
-            "tipo": "Vampiros",
-            "nombre": "Vampiro",
-            "vida": 96,
-            "vida_max": 96,
-            "atk": 28
-        },
-        {
-            "tipo": "Trolls",
-            "nombre": "Troll",
-            "vida": 65,
-            "vida_max": 65,
-            "atk": 48
-        },
-        {
-            "tipo": "Dragones",
-            "nombre": "Dragon",
-            "vida": 123,
-            "vida_max": 123,
-            "atk": 12
-        },
-        {
-            "tipo": "Vampiros",
-            "nombre": "Vampiro",
-            "vida": 68,
-            "vida_max": 68,
-            "atk": 41
-        },
-        {
-            "tipo": "Vampiros",
-            "nombre": "Vampiro",
-            "vida": 148,
-            "vida_max": 148,
-            "atk": 36
-        },
-        {
-            "tipo": "Dragones",
-            "nombre": "Dragon",
-            "vida": 62,
-            "vida_max": 62,
-            "atk": 17
-        },
-        {
-            "tipo": "Fenixs",
-            "nombre": "Fenix",
-            "vida": 118,
-            "vida_max": 118,
-            "atk": 14
-        },
-        {
-            "tipo": "Dragones",
-            "nombre": "Dragon",
-            "vida": 124,
-            "vida_max": 124,
-            "atk": 17
+        "Class": "Dragon",
+        "Type": "Tierra",
+
+        "HP": 150,
+        "MP": 150,
+        "Atk": 40,
+        "Def": 15,
+        "Spd": 65
         }
+        
+       
     ],
     "inventario": {
         "Minipocion": 3,

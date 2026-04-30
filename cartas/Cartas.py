@@ -1,113 +1,121 @@
 import math
-from re import match
-
+import random
 from design.Marco import Marco
+
 
 class Carta:
 
-    def __init__(self, nombre, vida, atk):
-        self.nombre = nombre
-        self.vida = vida
-        self.vida_max = vida
-        self.atk = atk
-        self.atk_origin= atk
+    def __init__(self, Class, Type, HP, MP, Atk, Def, Spd):
+
+ 
+        self.Class = Class
+        self.Type = Type
+
+        self.Base_HP = HP
+        self.Base_Atk = Atk
+        self.Base_Def = Def
+        self.Base_Spd = Spd
+        self.Base_MP = MP
+
+        self.HP = self.Base_HP
+        self.MP = self.Base_MP
+        self.Atk = self.Base_Atk
+        self.Def = self.Base_Def
+        self.Spd = self.Base_Spd
 
 
         self.anim_state = "idle"
         self.anim_timer = 0
         self.shake = 0
 
-        rank_atk = self.calcular_rank_atk(self.atk)
-        rank_hp = self.calcular_rank_hp(self.vida_max)
 
-        self.marco = Marco(rank_hp, rank_atk, self.nombre)
+        self.Characteristics = Marco(
+            self.Class,
+            self.Type,
+            self.Base_HP,
+            self.Base_Def,
+            self.Base_Atk,
+            self.Base_Spd,
+            self.Base_MP
+        )
+
 
     def Atacar(self):
-        daño = self.atk
-        return math.ceil(daño)
+        return math.ceil(self.Atk)
 
     def Recibir_daño(self, ataque):
-        self.vida -= ataque
 
+        damage = ataque - (ataque * (self.Def / 100))
+        damage = max(1, int(damage))  # evitar daño 0
+
+        self.HP -= damage
+
+        # animación
         self.anim_state = "hurt"
         self.anim_timer = 15
         self.shake = 8
 
-        if self.vida <= 0:
-            self.vida = 0
-            print(f"{self.nombre} ha sido derrotado")
-        else:
-            print(f"{self.nombre} ha recibido {ataque} de daño")
+        if self.HP <= 0:
+            self.HP = 0
+            return "dead"
+
+        return damage
+
+
+    def Pocion_Use(self, pocion):
+
+        porcentajes = {
+            "Minipocion": 0.1,
+            "Pocion": 0.3,
+            "Superpocion": 0.5,
+            "Hiperpocion": 1.0
+        }
+
+        if pocion not in porcentajes:
+            return 0
+
+        porcentaje = porcentajes[pocion]
+
+        curacion = int(self.Base_HP * porcentaje)
+        curacion_real = min(curacion, self.Base_HP - self.HP)
+
+        self.HP += curacion_real
+
+        # animación heal
+        self.anim_state = "heal"
+        self.anim_timer = 10
+
+        return curacion_real
+
+
+    def victoria(self):
+        self.HP = self.Base_HP
+        self.Atk = self.Base_Atk
+
+
+    def obtener_valor_venta(self):
+
+        # usamos el rank ya calculado en el marco
+        rango = self.marco.rank
+
+        valores = {
+            "S": 200,
+            "A": 100,
+            "B": 60,
+            "C": 30,
+            "D": 15
+        }
+
+        return valores.get(rango, 10)
+
 
     def to_dict(self):
         return {
-            "tipo": self.__class__.__name__,
-            "nombre": self.nombre,
-            "vida": self.vida,
-            "vida_max": self.vida_max,
-            "atk": self.atk
-    }
-
-    def Pocion_Use(self, Pocion):
-
-        porcentaje = 0
-        match Pocion:
-            case "Minipocion":
-                porcentaje = 0.1
-            case "Pocion":
-                porcentaje = 0.3
-            case "Superpocion":
-                porcentaje = 0.5
-            case "Hiperpocion":
-                porcentaje = 1.0
-
-        curacion = int(self.vida_max * porcentaje)
-        if self.vida + curacion > self.vida_max:
-            curacion = self.vida_max - self.vida
-        self.vida = min(self.vida + curacion, self.vida_max)
-        return curacion
-    
-    def victori(self):
-        self.vida = self.vida_max
-        self.atk = self.atk_origin
-
-    def obtener_rango_venta(self):
-        """Obtiene el rango de venta basado en ATK y HP (el más alto)"""
-        rank_atk = self.calcular_rank_atk(self.atk)
-        rank_hp = self.calcular_rank_hp(self.vida_max)
-        
-        # Comparar y retornar el rango más alto
-        rangos_valor = {"A": 4, "B": 3, "C": 2, "D": 1}
-        return max([rank_atk, rank_hp], key=lambda r: rangos_valor[r])
-    
-    def obtener_valor_venta(self):
-        """Retorna el valor en oro según el rango"""
-        rango = self.obtener_rango_venta()
-        valores = {
-            "A": 100,
-            "B": 50,
-            "C": 30,
-            "D": 20
+            "Class": self.Class,
+            "Type": self.Type,
+            "Base_HP": self.Base_HP,
+            "Base_Atk": self.Base_Atk,
+            "Base_Def": self.Base_Def,
+            "Base_Spd": self.Base_Spd,
+            "Base_MP": self.Base_MP,
         }
-        return valores.get(rango, 20)
-
-    @staticmethod
-    def calcular_rank_atk(atk):
-        if atk >= 46:
-            return "A"
-        elif atk >= 38:
-            return "B"
-        elif atk >= 26:
-            return "C"
-        return "D"
-
-
-    @staticmethod
-    def calcular_rank_hp(vida):
-        if vida >= 150:
-            return "A"
-        elif vida >= 100:
-            return "B"
-        elif vida >= 60:
-            return "C"
-        return "D"

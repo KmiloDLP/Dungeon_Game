@@ -102,7 +102,7 @@ class CombatState:
 
         if eleccion == enemigo:
             self.result_text = "Empate"
-            self.handle_troll_heal()
+            self.handle_Regenerator_heal()
             return
 
         win = (
@@ -148,7 +148,7 @@ class CombatState:
             atacante.Recibir_daño(daño)
             self.float_texts.append(FloatingText(f"-{int(daño)}", self.get_x(atacante), 200, (255,80,80)))
 
-        if atacante.nombre == "Vampiro":
+        if atacante.nombre == "Drain":
             heal = ataque * 0.25
             atacante.Recuperar_vida(heal)
             self.float_texts.append(FloatingText(f"+{int(heal)}", self.get_x(atacante), 200, (80,255,120)))
@@ -159,10 +159,10 @@ class CombatState:
     # -------------------------
     # 🧪 EFECTOS
     # -------------------------
-    def handle_troll_heal(self):
+    def handle_Regenerator_heal(self):
 
         for carta, x in [(self.player, self.x_player), (self.enemy, self.x_enemy)]:
-            if carta.nombre == "Troll":
+            if carta.nombre == "Regenerator":
                 heal = carta.vida * 0.1
                 carta.Recuperar_vida()
                 self.float_texts.append(FloatingText(f"+{int(heal)}", x, 200, (80,255,120)))

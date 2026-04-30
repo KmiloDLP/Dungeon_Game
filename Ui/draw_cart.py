@@ -50,47 +50,54 @@ def draw_text(surface, text, font,col=(255,255,255), out_col=(0,0,0),pos=(0,0), 
 
 
 def draw_card(screen, carta, x, y, info=False, scale=1):
-    import random  # necesario para shake
+    import random
 
-    width, height = int(200 * scale), int(300 * scale)
+    base_w, base_h = 200, 300
+    width, height = int(base_w * scale), int(base_h * scale)
 
     # -------------------------
-    # 🎬 ANIMACIÓN (SHAKE / HEAL)
+    # 🎬 ANIMACIÓN
     # -------------------------
     offset_x = 0
     offset_y = 0
-    scale = 1
+    anim_scale = 1
 
     if carta.anim_state == "hurt":
         offset_x = random.randint(-carta.shake, carta.shake)
         offset_y = random.randint(-carta.shake, carta.shake)
 
     elif carta.anim_state == "heal":
-        scale = 1.05  # pequeño “pulse” de curación
+        anim_scale = 1.05
+
+    final_scale = scale * anim_scale
 
     # -------------------------
     # 🧱 FONDO
     # -------------------------
-    fondo = load_image(carta.marco.ruta_fondo)
+    fondo = load_image(carta.Characteristics.fondo)
     fondo = pygame.transform.scale(
         fondo,
-        (int(width * scale), int(height * scale))
+        (int(base_w * final_scale), int(base_h * final_scale))
     )
     screen.blit(fondo, (x + offset_x, y + offset_y))
 
     # -------------------------
     # 🏷️ NOMBRE
     # -------------------------
-    text_nombre = font_title.render(carta.nombre, True, (0, 0, 0))
+    text_nombre = font_title.render(carta.Characteristics.nombre, True, (0, 0, 0))
     text_rect = text_nombre.get_rect(
-        center=(x + 80 + offset_x, y + 20 + offset_y)
+        center=(x + width // 2 + offset_x, y + int(20 * scale) + offset_y)
     )
     screen.blit(text_nombre, text_rect)
 
     # -------------------------
-    # 🖼️ IMAGEN CENTRAL
+    # 🖼️ IMAGEN
     # -------------------------
-    ruta_img = carta.marco.info_img if info else carta.marco.ruta_imagen
+    ruta_img = (
+        carta.Characteristics.Info
+        if info else carta.Characteristics.sprite
+    )
+
     img = load_image(ruta_img)
 
     w, h = img.get_size()
@@ -98,22 +105,52 @@ def draw_card(screen, carta, x, y, info=False, scale=1):
 
     img = pygame.transform.scale(
         img,
-        (int(w * img_scale * scale), int(h * img_scale * scale))
+        (
+            int(w * img_scale * final_scale),
+            int(h * img_scale * final_scale)
+        )
     )
 
     img_rect = img.get_rect(
-        center=(x + 100 + offset_x, y + 155 + offset_y)
+        center=(
+            x + width // 2 + offset_x,
+            y + int(155 * scale) + offset_y
+        )
     )
     screen.blit(img, img_rect)
 
     # -------------------------
     # 🏅 RANK
     # -------------------------
-    text_rank = font_rank.render(carta.marco.rank, True, (0, 0, 0))
+    text_rank = font_rank.render(carta.Characteristics.rank, True, (0, 0, 0))
     rank_rect = text_rank.get_rect(
-        center=(x + width - 32 + offset_x, y + 20 + offset_y)
+        center=(
+            x + width - int(30 * scale) + offset_x,
+            y + int(20 * scale) + offset_y
+        )
     )
     screen.blit(text_rank, rank_rect)
+
+    # -------------------------
+    # 📊 STATS
+    # -------------------------
+    draw_text(
+        screen,
+        f"{carta.HP}",
+        font_stat,
+        (0, 255, 0),
+        (0, 0, 0),
+        (x + int(15 * scale) + offset_x, y + height - int(25 * scale) + offset_y)
+    )
+
+    draw_text(
+        screen,
+        f"{carta.Atk}",
+        font_stat,
+        (255, 0, 0),
+        (0, 0, 0),
+        (x + width - int(35 * scale) + offset_x, y + height - int(25 * scale) + offset_y)
+    )
 
     # -------------------------
     # 📊 STATS
@@ -122,7 +159,7 @@ def draw_card(screen, carta, x, y, info=False, scale=1):
 
     draw_text(
         screen,
-        f"{carta.vida}",
+        f"{carta.HP}",
         font_stat,
         (0, 255, 0),
         color_contorno,
@@ -131,7 +168,7 @@ def draw_card(screen, carta, x, y, info=False, scale=1):
 
     draw_text(
         screen,
-        f"{carta.atk}",
+        f"{carta.Atk}",
         font_stat,
         (255, 0, 0),
         color_contorno,

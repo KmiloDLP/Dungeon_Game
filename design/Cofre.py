@@ -1,13 +1,13 @@
 import random
-from cartas import Vampiro
-from cartas import Dragones
+from cartas import Drains
+from cartas import Dragons
 from cartas import Golems
 from cartas import Cristalize
-from cartas import Fantasmas
-from cartas import Fenixs
-from cartas import Lichs
-from cartas import Ogros
-from cartas import Troll
+from cartas import Spirits
+from cartas import Immortals
+from cartas import Wizards
+from cartas import Warriors
+from cartas import Regenerators
 
 
 class Cofre:
@@ -30,37 +30,61 @@ class Cofre:
 
     def generar_carta(self):
 
-        criaturas = ["Golem", "Dragon", "Vampiro", "Fantasma", "Ogro", "Lich", "Troll", "Fenix", "Cristalize"]
-        
-        criature = random.choice(criaturas)
 
-        rangos = {
-            "A": (200, 50),
-            "B": (186, 45),
-            "C": (156, 37),
-            "D": (110, 25)
+        Types = {
+            "Cristalize": ["Tierra", "Aire", "Planta", "Luz"],
+            "Dragon": ["Tierra", "Agua", "Fuego", "Aire", "Oscuridad"],
+            "Drain": ["Agua", "Aire", "Planta", "Metal", "Oscuridad"],
+            "Golem": ["Tierra", "Fuego", "Planta", "Metal"],
+            "Immortal": ["Agua", "Fuego", "Metal", "Luz"],
+            "Regenerator": ["Tierra", "Agua", "Planta", "Metal", "Luz"],
+            "Spirit": ["Agua", "Fuego", "Aire", "Oscuridad", "Luz"],
+            "Warrior": ["Tierra", "Aire", "Metal", "Oscuridad", "Luz"],
+            "Wizard": ["Agua", "Fuego", "Planta", "Oscuridad"],
         }
 
-        hp_max, atk_max = rangos[self.rango]
+        clase = random.choice(list(Types.keys()))
+        tipo = random.choice(Types[clase])  
 
-        atk = random.randint(10, atk_max)
-        hp = random.randint(50, hp_max)
+  
+        def generar_stat(minimo, maximo):
+            r = random.random()
+            rango = maximo - minimo
 
-        criaturas_map = {
+            if r <= 0.4:
+                return random.randint(minimo, int(minimo + rango * 0.4))
+            elif r <= 0.7:
+                return random.randint(int(minimo + rango * 0.4), int(minimo + rango * 0.7))
+            elif r <= 0.9:
+                return random.randint(int(minimo + rango * 0.7), int(minimo + rango * 0.9))
+            else:
+                return random.randint(int(minimo + rango * 0.9), maximo)
+
+
+        hp  = generar_stat(50, 200)
+        atk = generar_stat(10, 50)
+        deff = generar_stat(1, 30)
+        spd = generar_stat(10, 100)
+        mp  = generar_stat(100, 200)
+
+  
+        Classes = {
             "Golem": Golems.Golems,
-            "Dragon": Dragones.Dragones,
-            "Vampiro": Vampiro.Vampiros,
-            "Fantasma": Fantasmas.Fantasmas,
-            "Ogro": Ogros.Ogros,
-            "Lich": Lichs.Lichs,
-            "Troll": Troll.Trolls,
-            "Fenix": Fenixs.Fenixs,
+            "Dragon": Dragons.Dragons,
+            "Drain": Drains.Drains,
+            "Spirit": Spirits.Spirits,
+            "Warrior": Warriors.Warriors,
+            "Wizard": Wizards.Wizards,
+            "Regenerator": Regenerators.Regenerators,
+            "Immortal": Immortals.Immortals,
             "Cristalize": Cristalize.Cristalize
         }
 
-        carta = criaturas_map[criature]
-        return carta(hp, atk)
+        clase_obj = Classes[clase]
+        carta = clase_obj(clase, tipo, hp, mp, atk, deff, spd)
 
+
+        return carta
 
     def generar_objeto(self):
         if self.rango == "A":
