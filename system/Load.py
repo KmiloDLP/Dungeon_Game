@@ -1,12 +1,14 @@
-from cartas.Cristalize import Cristalize
-from cartas.Dragons import Dragons
-from cartas.Spirits import Spirits
-from cartas.Immortals import Immortals
-from cartas.Golems import Golems
-from cartas.Wizards import Wizards
-from cartas.Warriors import Warriors
-from cartas.Regenerators import Regenerators
-from cartas.Drains import Drains
+from Class.Card_structures.Class.Cristalize import Cristalize
+from Class.Card_structures.Class.Dragons import Dragons
+from Class.Card_structures.Class.Spirits import Spirits
+from Class.Card_structures.Class.Immortals import Immortals
+from Class.Card_structures.Class.Golems import Golems
+from Class.Card_structures.Class.Wizards import Wizards
+from Class.Card_structures.Class.Warriors import Warriors
+from Class.Card_structures.Class.Regenerators import Regenerators
+from Class.Card_structures.Class.Drains import Drains
+
+from Class.Card_structures.Skills.Skills_registry import SKILL_NAME_MAP
 
 
 def crear_carta_desde_dict(data):
@@ -31,11 +33,19 @@ def crear_carta_desde_dict(data):
 
     carta = clase(
         data["Type"],
-        data["HP"],   # ← antes Base_HP
+        data["HP"],
         data["MP"],
         data["Atk"],
         data["Def"],
-        data["Spd"]
+        data["Spd"],
+        auto_skills=False
     )
+
+    if "skills" in data:
+        carta.habilidades = [
+            SKILL_NAME_MAP[nombre]
+            for nombre in data["skills"]
+            if nombre in SKILL_NAME_MAP
+        ]
 
     return carta

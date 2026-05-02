@@ -1,6 +1,6 @@
 import pygame
 from Ui.draw_cart import draw_card, draw_text, font_ui, font_ui_mini
-from design.Cofre import Cofre
+from Class.Utilities.Cofre import Cofre
 
 
 class MazoState:
@@ -61,7 +61,7 @@ class MazoState:
                     self.anim_scale = 0.8
 
                 elif event.key == pygame.K_ESCAPE:
-                    from states.menu import MenuState
+                    from States.menu import MenuState
                     self.game.change_state(MenuState(self.game))
 
     def ejecutar_accion_menu(self):
@@ -172,8 +172,7 @@ class MazoState:
         menu_height = len(opciones) * 60
         menu_y = height // 2 - menu_height // 2
         
-        draw_text(screen, f"Selecciona una acción para {carta.nombre}:", font_ui_mini, center=True, pos=(width//2, menu_y - 60))
-        
+        draw_text(screen, f"Selecciona una acción para {carta.Characteristics.nombre}:", font_ui_mini, center=True, pos=(width//2, menu_y - 60))
         for i, opcion in enumerate(opciones):
             y = menu_y + i * 60
             color = (100, 255, 100) if i == self.menu_selected else (255, 255, 255)

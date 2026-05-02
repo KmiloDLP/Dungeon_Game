@@ -1,6 +1,6 @@
 import pygame
 from Ui.draw_cart import draw_text, draw_card, draw_item
-from system.Save import guardar_juego
+from System.Save import guardar_juego
 
 
 class VictoryState:
@@ -44,18 +44,18 @@ class VictoryState:
 
             if event.key == pygame.K_RETURN:
                 if self.volver_a == "inventario":
-                    from states.Inventario import InventarioState
+                    from States.Inventario import InventarioState
                     self.game.change_state(InventarioState(self.game))
                 else:
-                    from states.menu import MenuState
+                    from States.menu import MenuState
                     self.game.change_state(MenuState(self.game))
 
             elif event.key == pygame.K_ESCAPE:
                 if self.volver_a == "inventario":
-                    from states.Inventario import InventarioState
+                    from States.Inventario import InventarioState
                     self.game.change_state(InventarioState(self.game))
                 else:
-                    from states.menu import MenuState
+                    from States.menu import MenuState
                     self.game.change_state(MenuState(self.game))
 
     def update(self):

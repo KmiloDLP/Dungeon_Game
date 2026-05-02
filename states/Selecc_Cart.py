@@ -36,12 +36,12 @@ class SeleccionCartaState:
 
             elif event.key == pygame.K_RETURN:
                 carta = self.game.mazo[self.selected]
-                from states.combate import CombatState
+                from States.combate import CombatState
                 self.game.change_state(CombatState(self.game, carta, self.enemy))
 
             elif event.key == pygame.K_ESCAPE:
                 if self.volver_a_combate:
-                    from states.menu import MenuState
+                    from States.menu import MenuState
                     self.game.change_state(MenuState(self.game))
 
             self.actualizar_scroll()

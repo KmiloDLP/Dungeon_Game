@@ -37,15 +37,15 @@ class MenuState:
         opcion = self.options[self.selected]
 
         if opcion == "Luchar":
-            from states.Selecc_Cart import SeleccionCartaState
+            from States.Selecc_Cart import SeleccionCartaState
             self.game.change_state(SeleccionCartaState(self.game))
 
         elif opcion == "Mazo":
-            from states.Mazo import MazoState
+            from States.Mazo import MazoState
             self.game.change_state(MazoState(self.game))
 
         elif opcion == "Inventario":
-            from states.Inventario import InventarioState
+            from States.Inventario import InventarioState
             self.game.change_state(InventarioState(self.game))
 
         elif opcion == "Salir":

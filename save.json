@@ -1,97 +1,61 @@
 {
     "mazo": [
         {
-        "Class": "Dragon",
-        "Type": "Fuego",
-
-        "HP": 150,
-        "MP": 150,
-        "Atk": 40,
-        "Def": 15,
-        "Spd": 65
+            "tipo": "Dragons",
+            "Class": "Dragon",
+            "Type": "Fire",
+            "HP": 150,
+            "MP": 150,
+            "Atk": 40,
+            "Def": 15,
+            "Spd": 65,
+            "skills": [
+                "Tormenta de Golpes",
+                "Ira Ardiente"
+            ]
         },
         {
-        "Class": "Golem",
-        "Type": "Tierra",
-
-        "HP": 150,
-        "MP": 150,
-        "Atk": 40,
-        "Def": 15,
-        "Spd": 65
+            "tipo": "Warriors",
+            "Class": "Warrior",
+            "Type": "Metal",
+            "HP": 55,
+            "MP": 122,
+            "Atk": 22,
+            "Def": 27,
+            "Spd": 91,
+            "skills": [
+                "Impacto Pesado",
+                "Cuchilla"
+            ]
         },
         {
-        "Class": "Drain",
-        "Type": "Agua",
-
-        "HP": 150,
-        "MP": 150,
-        "Atk": 40,
-        "Def": 15,
-        "Spd": 65
+            "tipo": "Cristalize",
+            "Class": "Cristalize",
+            "Type": "Earth",
+            "HP": 51,
+            "MP": 176,
+            "Atk": 19,
+            "Def": 2,
+            "Spd": 84,
+            "skills": [
+                "Golpe Fuerte",
+                "Fortaleza"
+            ]
         },
         {
-        "Class": "Immortal",
-        "Type": "Metal",
-
-        "HP": 150,
-        "MP": 150,
-        "Atk": 40,
-        "Def": 15,
-        "Spd": 65
-        },
-        {
-        "Class": "Regenerator",
-        "Type": "Luz",
-
-        "HP": 200,
-        "MP": 200,
-        "Atk": 50,
-        "Def": 30,
-        "Spd": 50
-        },
-        {
-        "Class": "Spirit",
-        "Type": "Aire",
-
-        "HP": 150,
-        "MP": 150,
-        "Atk": 40,
-        "Def": 15,
-        "Spd": 65
-        },
-        {
-        "Class": "Warrior",
-        "Type": "Oscuridad",
-
-        "HP": 150,
-        "MP": 150,
-        "Atk": 40,
-        "Def": 15,
-        "Spd": 65
-        },
-        {
-        "Class": "Wizard",
-        "Type": "Planta",
-
-        "HP": 150,
-        "MP": 150,
-        "Atk": 40,
-        "Def": 15,
-        "Spd": 65
-        },
-        {
-        "Class": "Cristalize",
-        "Type": "Planta",
-
-        "HP": 150,
-        "MP": 150,
-        "Atk": 40,
-        "Def": 15,
-        "Spd": 65
+            "tipo": "Dragons",
+            "Class": "Dragon",
+            "Type": "Earth",
+            "HP": 60,
+            "MP": 173,
+            "Atk": 29,
+            "Def": 13,
+            "Spd": 73,
+            "skills": [
+                "Impacto Pesado",
+                "Pu\u00f1o de Piedra"
+            ]
         }
-        
-       
     ],
     "inventario": {
         "Minipocion": 3,

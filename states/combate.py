@@ -2,8 +2,8 @@ import pygame
 import random
 from Ui.FloatingText import FloatingText
 from Ui.draw_cart import draw_card, draw_options, draw_text, draw_item, draw_pocion
-from design.Cofre import Cofre
-from system.Save import guardar_juego
+from Class.Utilities.Cofre import Cofre
+from System.Save import guardar_juego
 
 
 class CombatState:
@@ -12,6 +12,12 @@ class CombatState:
         self.game = game
         self.player = carta_player
         self.enemy = enemy or Cofre(random.choice(["C", "B", "A", "D"])).generar_carta()
+        guardar_juego(self.game)
+
+
+        print("Habiliades: "+ self.enemy.habilidades[0].nombre + "  " + self.enemy.habilidades[1].nombre)
+        print("Habiliades: "+ self.player.habilidades[0].nombre + "  " + self.player.habilidades[1].nombre)
+
 
         if len(game.mazo) == 0:
             self.player = Cofre(random.choice(["C", "B", "A", "D"])).generar_carta()
@@ -49,17 +55,17 @@ class CombatState:
 
                 # 🔴 SI PERDISTE → elegir carta
                 if self.waiting_continue and len(self.game.mazo) > 0:
-                    from states.Selecc_Cart import SeleccionCartaState
+                    from States.Selecc_Cart import SeleccionCartaState
                     self.game.change_state(
                         SeleccionCartaState(self.game, enemy=self.enemy)
                     )
 
                 else:
-                    from states.menu import MenuState
+                    from States.menu import MenuState
                     self.game.change_state(MenuState(self.game))
 
             elif event.key == pygame.K_ESCAPE:
-                from states.menu import MenuState
+                from States.menu import MenuState
                 self.game.change_state(MenuState(self.game))
 
             return
@@ -174,7 +180,7 @@ class CombatState:
 
         if self.enemy.vida <= 0:
 
-            from states.victory import VictoryState
+            from States.victory import VictoryState
             recompensa = Cofre(random.choice(["C", "B", "A", "D"])).generar_contenido()
             self.player.victori()
             self.game.change_state(

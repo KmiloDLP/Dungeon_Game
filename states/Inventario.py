@@ -1,7 +1,7 @@
 import pygame
 import random
 from Ui.draw_cart import draw_item, draw_text, font_ui, font_ui_mini
-from design.Cofre import Cofre
+from Class.Utilities.Cofre import Cofre
 
 class InventarioState:
     def __init__(self, game):
@@ -59,7 +59,7 @@ class InventarioState:
                     self.anim_scale = 0.8
 
                 elif event.key == pygame.K_ESCAPE:
-                    from states.menu import MenuState
+                    from States.menu import MenuState
                     self.game.change_state(MenuState(self.game))
 
         total = len(self.get_items())
@@ -113,7 +113,7 @@ class InventarioState:
             guardar_juego(self.game)
             
             # Mostrar la carta con Victory y volver a Inventario
-            from states.victory import VictoryState
+            from States.victory import VictoryState
             self.game.change_state(VictoryState(self.game, None, None, carta, titulo="¡Compraste una carta!", volver_a="inventario"))
             
             self.show_menu = False
