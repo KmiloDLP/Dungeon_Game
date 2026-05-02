@@ -31,6 +31,7 @@ def crear_carta_desde_dict(data):
         print(f"[WARN] Clase desconocida: {data.get('Class')}")
         return None
 
+    # 🔥 Crear SIN habilidades automáticas
     carta = clase(
         data["Type"],
         data["HP"],
@@ -38,9 +39,10 @@ def crear_carta_desde_dict(data):
         data["Atk"],
         data["Def"],
         data["Spd"],
-        auto_skills=False
+        auto_skills=False  # 🔥 CLAVE
     )
 
+    # 🔥 restaurar habilidades guardadas
     if "skills" in data:
         carta.habilidades = [
             SKILL_NAME_MAP[nombre]

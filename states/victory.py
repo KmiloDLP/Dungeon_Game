@@ -75,7 +75,7 @@ class VictoryState:
 
         # enemigo derrotado (si existe)
         if self.enemy is not None:
-            draw_text(screen, f"Derrotaste a {self.enemy.nombre}",
+            draw_text(screen, f"Derrotaste a {self.enemy.Characteristics.nombre}",
                       self.small_font, center=True, pos=(width//2, 150))
             draw_text(screen, " Recompensa", self.font, col=(255,255,255), center=True, pos=(width//2, 250))
             reward_y = 300

@@ -181,6 +181,6 @@ class Carta:
             "Atk": self.Base_Atk,
             "Def": self.Base_Def,
             "Spd": self.Base_Spd,
-            "skills": [s.nombre for s in getattr(self, "habilidades", [])]
+            "skills": [s.nombre for s in self.habilidades] 
         }
        

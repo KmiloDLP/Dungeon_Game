@@ -37,7 +37,9 @@ class SeleccionCartaState:
             elif event.key == pygame.K_RETURN:
                 carta = self.game.mazo[self.selected]
                 from States.combate import CombatState
-                self.game.change_state(CombatState(self.game, carta, self.enemy))
+                self.game.change_state(
+                    CombatState(self.game, carta, self.enemy, allow_exit=self.volver_a_combate)
+                )
 
             elif event.key == pygame.K_ESCAPE:
                 if self.volver_a_combate:

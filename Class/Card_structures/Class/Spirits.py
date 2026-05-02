@@ -6,7 +6,7 @@ class Spirits(Carta):
     def __init__(self, Type, HP, MP, Atk, Def, Spd, auto_skills=True):
         super().__init__("Spirit", Type, HP, MP, Atk, Def, Spd, auto_skills=True)
 
-    def Recibir_daño(self, ataque):
+    def Recibir_daño(self, ataque, atacante=None):
 
         dado = random.randint(0, 9)
 

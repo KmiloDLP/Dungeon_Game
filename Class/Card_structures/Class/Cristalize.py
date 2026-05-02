@@ -12,7 +12,7 @@ class Cristalize(Carta):
         damage = objetivo.Recibir_daño(ataque)
         return damage
 
-    def Recibir_daño(self, ataque):
+    def Recibir_daño(self, ataque, atacante=None):
         self.cargas += 1
         self.anim_state = "hurt"
         self.anim_timer = 15

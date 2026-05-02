@@ -1,6 +1,5 @@
 from States.menu import MenuState
-from States.combate import CombatState
-from System.Save import guardar_juego, cargar_juego
+from System.Save import cargar_juego
 
 class Game:
     def __init__(self, screen):

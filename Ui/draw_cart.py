@@ -175,31 +175,26 @@ def draw_item(screen, item, x, y, cantidad, img_size=None, info=False, scale=1):
        screen,"x"+ f"{cantidad}",font_stat, (255, 255, 255),(0, 0, 0), (text_x, text_y)
     )
 
-def draw_options(screen, item, x, y, offset_y=0, player=False):
+def draw_options(screen, x, y, Skill=None):
 
     base_dir = os.path.dirname(__file__)
     img_dir = os.path.join(base_dir, "options")
-    ruta_item = os.path.join(img_dir, f"{item}.png")
 
-    try:
-        img = load_image(ruta_item)
-    except:
-        print("Error cargando:", ruta_item)
-        return
+    if Skill is None:
+        ruta_item = os.path.join(img_dir, "Options.png")
+    else:
+        ruta_item = getattr(Skill, "Fund", os.path.join(img_dir, "Options.png"))
 
-    ITEM_W, ITEM_H = 80, 130
-    img = pygame.transform.scale(img, (ITEM_W, ITEM_H))
+    if ruta_item not in image_cache:
+        try:
+            img = load_image(ruta_item)
+            img = pygame.transform.scale(img, (250, 45))
+            image_cache[ruta_item] = img
+        except Exception as e:
+            print("Error cargando:", ruta_item, "|", e)
+            return
 
-    if player:
-        match item:
-            case "Piedra": number = "1"
-            case "Papel": number = "2"  
-            case "Tijera": number = "3"
-
-        draw_text(screen,number,font_ui, (255, 255, 255),(0, 0, 0), (x + 30, y + ITEM_H - 5 + offset_y)
-    )
-
-    screen.blit(img, (x, y + offset_y))
+    screen.blit(image_cache[ruta_item], (x-10, y-10))
 
 
 def draw_pocion(screen, pocion, x, y, cantidad,):

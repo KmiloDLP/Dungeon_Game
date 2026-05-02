@@ -5,7 +5,7 @@ class Immortals(Carta):
         super().__init__("Immortal", Type, HP, MP, Atk, Def, Spd, auto_skills=True)
         self.renacido = False
 
-    def Recibir_daño(self, ataque):
+    def Recibir_daño(self, ataque, atacante=None):
         resultado = super().Recibir_daño(ataque)
 
         if self.HP <= 0 and not self.renacido:

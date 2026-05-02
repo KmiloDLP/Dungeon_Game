@@ -5,7 +5,7 @@ class Warriors(Carta):
     def __init__(self, Type, HP, MP, Atk, Def, Spd, auto_skills=True):
         super().__init__("Warrior", Type, HP, MP, Atk, Def, Spd, auto_skills=True)
 
-    def Recibir_daño(self, ataque):
+    def Recibir_daño(self, ataque, atacante=None):
         resultado = super().Recibir_daño(ataque)
 
         daño_perdido = self.Base_HP - self.HP
