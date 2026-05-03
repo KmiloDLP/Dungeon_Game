@@ -6,11 +6,14 @@ class Cristalize(Carta):
         super().__init__("Cristalize", Type, HP, MP, Atk, Def, Spd, auto_skills=True)
         self.cargas = 0
 
-    def Atacar(self, objetivo):
-        ataque = self.Atk * (1 + 0.25 * self.cargas)
+
+    def Attack(self, daño, target):
+
+        daño = int(daño * (1 + self.cargas * 0.2))
+        result = target.Recibir_daño(daño, self)
+
         self.cargas = 0
-        damage = objetivo.Recibir_daño(ataque)
-        return damage
+        return result
 
     def Recibir_daño(self, ataque, atacante=None):
         self.cargas += 1

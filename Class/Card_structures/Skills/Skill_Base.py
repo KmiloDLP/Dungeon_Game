@@ -1,5 +1,6 @@
+
 import os
-import inspect
+
 class Habilidad:
     def __init__(self, nombre, type, efecto, objetivo="enemigo", coste_mp=0, **params ):
         self.nombre = nombre
@@ -26,14 +27,5 @@ class Habilidad:
         if self.objetivo == "self":
             target = user
 
-        sig = inspect.signature(self.efecto)
-        params = list(sig.parameters.values())
-
-        if len(params) >= 2 and params[0].name == "user" and params[1].name == "target":
-            return self.efecto(user, target, **self.params)
-
-        if len(params) >= 1 and params[0].name == "target":
-            return self.efecto(target, **self.params)
-
-        return self.efecto(user, **self.params)
+        return self.efecto(user, target, **self.params)
     

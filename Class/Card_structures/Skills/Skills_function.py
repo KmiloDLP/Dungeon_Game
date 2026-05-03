@@ -5,11 +5,11 @@ import random
 # Damage skills
 def Damage_skills(user, target, bonus):
     daño = int(user.Atk * bonus)
-    result = target.Recibir_daño(daño, user)
+    result = user.Attack(daño, target)
     return {"damage": result}
 
 # Buff Stats
-def Buff_Stats(user, bonus, stat):
+def Buff_Stats(user, target, bonus, stat):
     base_attr = f"Base_{stat}"
     current_attr = stat
 
@@ -24,7 +24,7 @@ def Buff_Stats(user, bonus, stat):
     return {"buff": buff, "stat": stat}
 
 # Debuff Stats
-def Debuff_Stats(target, bonus, stat):
+def Debuff_Stats(user, target, bonus, stat):
     base_attr = f"Base_{stat}"
     current_attr = stat
 
@@ -39,9 +39,9 @@ def Debuff_Stats(target, bonus, stat):
     return {"debuff": debuff, "stat": stat}
 
 # Buff + Debuff
-def Buff_debuff(user, bonus1, stat1, bonus2, stat2):
-    r1 = Buff_Stats(user, bonus1, stat1)
-    r2 = Debuff_Stats(user, bonus2, stat2)
+def Buff_debuff(user, target, bonus1, stat1, bonus2, stat2):
+    r1 = Buff_Stats(user, target, bonus1, stat1)
+    r2 = Debuff_Stats(user, user, bonus2, stat2)
 
     return {
         "buff": r1,
@@ -49,16 +49,21 @@ def Buff_debuff(user, bonus1, stat1, bonus2, stat2):
     }
 
 # Status
-def Status_modification(target, duration, state):
-    target.debuff = state
-    target.debuff_duration = duration
+def Status_modification(user, target, duration, state, debuff=True):
+
+    if debuff:
+        target.Debuff = state
+        target.duration_debuff = duration
+    else:
+        user.Buff = state
+        user.duration_buff = duration
 
     return {"status": state, "duration": duration}
 
 # Drain
 def Drain_hp(user, target, bonus_damage, bonus_heal):
     damage = int(user.Atk * bonus_damage)
-    result_damage = target.Recibir_daño(damage, user)
+    result_damage = user.Attack(damage, target)
 
     heal = int(damage * bonus_heal)
     result_heal = user.Heal(heal)
@@ -69,7 +74,7 @@ def Drain_hp(user, target, bonus_damage, bonus_heal):
     }
 
 #Healing
-def Healings(user, bonus):
+def Healings(user, target, bonus):
     heal = int(user.Base_HP * bonus)
     result = user.Heal(heal)
 
@@ -92,14 +97,14 @@ def difference(user, target, stat, superior=True):
     diff = max(1, diff)
 
     daño = int(user.Atk * (1 + diff * 0.01))
-    result = target.Recibir_daño(daño, user)
+    result = user.Attack(daño, target)
 
     return {"damage": result, "scale": diff}
 
 # Debuff strike
 def Debuff_stroke(user, target, stat, bonus):
     daño = int(user.Atk * bonus)
-    result_damage = target.Recibir_daño(daño, user)
+    result_damage = user.Attack(daño, target)
 
     result_debuff = Debuff_Stats(target, bonus, stat)
 
@@ -131,13 +136,13 @@ def steal_stats(user, target, stat, bonus):
     }
 
 
-def multi_hit(user, target, bonus, limite, probabilidad):
+def multi_hit(user, target, bonus, max_hits, variability):
 
     hits = 1
 
     # intenta seguir golpeando hasta el límite
-    for _ in range(limite - 1):
-        if random.random() <= probabilidad:
+    for _ in range(max_hits - 1):
+        if random.random() <= variability:
             hits += 1
         else:
             break
@@ -146,13 +151,14 @@ def multi_hit(user, target, bonus, limite, probabilidad):
 
     for _ in range(hits):
         daño = int(user.Atk * bonus)
-        result = target.Recibir_daño(daño, user)
+        result = user.Attack(daño, target)
 
         if result == "dead":
             total_damage += daño
             break
 
-        total_damage += result
+        if isinstance(result, int):
+            total_damage += result
 
     return {
         "hits": hits,

@@ -67,18 +67,24 @@ class Carta:
 
         if index >= len(self.habilidades):
             return {"error": "habilidad_invalida"}
-
         habilidad = self.habilidades[index]
 
         try:
             resultado = habilidad.usar(self, target)
         except Exception as e:
             return {"error": str(e)}
+        
 
         return {
             "habilidad": habilidad.nombre,
             "resultado": resultado
         }
+
+    # ATACAR
+    def Attack(self, daño, target):
+        
+        result = target.Recibir_daño(daño, self)
+        return result
 
     # RECIBIR DAÑO
     def Recibir_daño(self, ataque, atacante=None):

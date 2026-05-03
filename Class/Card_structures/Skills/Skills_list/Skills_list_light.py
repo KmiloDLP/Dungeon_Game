@@ -15,7 +15,7 @@ SKILLS_LIGHT = [
     Habilidad("Bendición","Light", Buff_Stats, stat="Atk", bonus=0.3),
     Habilidad("Protección","Light", Buff_Stats, stat="Def", bonus=0.4),
     Habilidad("Sanar","Light",Healings, bonus=0.4),
-    Habilidad("Bautizo","Light", Status_modification, state="Cleanse", duration=1),
+    Habilidad("Bautizo","Light", Status_modification, state="Cleanse", duration=1,debuff=False),
     Habilidad("Aura Sagrada","Light",Buff_debuff,stat1="Def", bonus1=0.3,stat2="Atk", bonus2=0.1),
 
 ]

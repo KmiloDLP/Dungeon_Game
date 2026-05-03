@@ -11,8 +11,6 @@ class Spirits(Carta):
         dado = random.randint(0, 9)
 
         if dado in (0, 9):
-            print(f"{self.nombre} esquivó el ataque!")
             return "miss" 
 
         super().Recibir_daño(ataque)
-        return "hit"

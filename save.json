@@ -3,37 +3,36 @@
         {
             "tipo": "Dragons",
             "Class": "Dragon",
-            "Type": "Fire",
+            "Type": "Water",
             "HP": 500,
             "MP": 200,
-            "Atk": 50,
+            "Atk": 25,
             "Def": 30,
             "Spd": 65,
             "skills": [
-                "Tormenta de Golpes",
-                "Ira Ardiente"
+                "Golpe Brutal"
             ]
         },
         {
-            "tipo": "Golems",
-            "Class": "Golem",
-            "Type": "Earth",
-            "HP": 129,
-            "MP": 134,
-            "Atk": 22,
-            "Def": 1,
-            "Spd": 25,
+            "tipo": "Warriors",
+            "Class": "Warrior",
+            "Type": "Light",
+            "HP": 155,
+            "MP": 162,
+            "Atk": 42,
+            "Def": 2,
+            "Spd": 10,
             "skills": [
-                "Impacto Pesado",
-                "Pu\u00f1o de Piedra"
+                "Combo Salvaje",
+                "Bautizo"
             ]
         }
     ],
     "inventario": {
-        "Minipocion": 4,
-        "Pocion": 4,
-        "Superpocion": 3,
-        "Hiperpocion": 5
+        "Minipocion": 7,
+        "Pocion": 7,
+        "Superpocion": 6,
+        "Hiperpocion": 8
     },
-    "oro": 8418
+    "oro": 8743
 }

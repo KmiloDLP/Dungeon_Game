@@ -10,12 +10,11 @@ class Immortals(Carta):
 
         if self.HP <= 0 and not self.renacido:
             self.HP = int(self.Base_HP * 0.5)
-            self.Atk = int(self.Base_Atk * 0.3)
+            self.Atk = int(self.Base_Atk * 2)
 
             self.renacido = True
             self.anim_state = "heal"
 
-            print(f"{self.nombre} ha renacido")
             return "revive"
 
         return resultado

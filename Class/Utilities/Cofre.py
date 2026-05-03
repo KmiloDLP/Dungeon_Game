@@ -44,6 +44,7 @@ class Cofre:
         }
 
         clase = random.choice(list(Types.keys()))
+        clase = "Immortal"
         tipo = random.choice(Types[clase])
 
         def generar_stat(minimo, maximo):

@@ -13,7 +13,7 @@ SKILLS_PLANT = [
 
     # utilidad (sustain y control)
     Habilidad("Fotosíntesis","Plant", Healings, bonus=0.4),
-    Habilidad("Esporas","Plant",Status_modification,state="Poison",duration=3),
+    Habilidad("Esporas","Plant",Status_modification,state="Poison",duration=3, debuff=True),
     Habilidad("Enredo","Plant", Debuff_Stats, stat="Spd", bonus=0.4),
     Habilidad("Crecimiento","Plant", Buff_Stats, stat="Def", bonus=0.3),
     Habilidad("Absorber Vida","Plant",Drain_hp,bonus_damage=1.1,bonus_heal=0.3),

@@ -15,6 +15,6 @@ SKILLS_DARK = [
     Habilidad("Maldición","Dark", Debuff_Stats, stat="Atk", bonus=0.4),
     Habilidad("Drenaje Oscuro","Dark",Drain_hp,bonus_damage=1.2,bonus_heal=0.5),
     Habilidad("Debilitamiento","Dark", Debuff_Stats, stat="Def", bonus=0.4),
-    Habilidad("Sombra Viva","Dark",Status_modification,state="Blind",duration=2),
+    Habilidad("Sombra Viva","Dark",Status_modification,state="Blind",duration=2, debuff=False),
     Habilidad("Robo Total","Dark",steal_stats,stat="Atk",bonus=0.4),
 ]

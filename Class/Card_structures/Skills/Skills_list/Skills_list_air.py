@@ -13,7 +13,7 @@ SKILLS_AIR = [
 
     # utilidad (velocidad, evasión, presión)
     Habilidad("Velocidad Extrema","Air", Buff_Stats, stat="Spd", bonus=0.5),
-    Habilidad("Evasión","Air",Status_modification,state="Dodge",duration=2),
+    Habilidad("Evasión","Air",Status_modification,state="Dodge",duration=2, debuff=False),
     Habilidad("Golpes Rápidos","Air",multi_hit,bonus=0.5,max_hits=4,variability=0.8),
     Habilidad("Desorientar","Air", Debuff_Stats, stat="Atk", bonus=0.3),
     Habilidad("Corriente","Air",Buff_debuff,stat1="Spd", bonus1=0.4,stat2="Def", bonus2=0.2),

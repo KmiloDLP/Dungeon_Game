@@ -16,5 +16,5 @@ SKILLS_FIRE = [
     Habilidad("Sobrecalentar","Fire",Buff_debuff,stat1="Atk", bonus1=0.4,stat2="Def", bonus2=0.2),
     Habilidad("Combustión","Fire",Status_modification,state="Burn",duration=3),
     Habilidad("Ráfaga Ígnea","Fire",multi_hit,bonus=0.6,max_hits=3,variability=0.7),
-    Habilidad("Sacrificio Ígneo","Fire",Drain_hp,bonus_damage=1.4,bonus_heal=0.2)
+    Habilidad("Devorar Calor","Fire",Drain_hp,bonus_damage=1.4,bonus_heal=0.2)
 ]

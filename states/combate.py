@@ -151,23 +151,27 @@ class CombatState:
         resultado = self.player.usar_habilidad(index, self.enemy)
 
         if resultado.get("error"):
-            if resultado["error"] == "no_mp":
-                self.result_text = "No tienes MP suficiente"
-            else:
-                self.result_text = f"Error: {resultado['error']}"
+            self.result_text = f"Error: {resultado['error']}"
+            self.menu_state = "main"
+            self.selected_sub = 0
             return
 
-        habilidad_nombre = resultado["habilidad"]
-        efecto = resultado["resultado"]
+        habilidad_nombre = resultado.get("habilidad", "Habilidad desconocida")
+        efecto = resultado.get("resultado", {})
 
         self.result_text = f"{self.player.Characteristics.nombre} usa {habilidad_nombre}"
 
         self.apply_skill_effects(efecto)
 
+        print("PLAYER_BUFFSTATUS: "+ self.player.Buff)
+        print("PLAYER_DEBUFFSTATUS: "+ self.player.Debuff)
+        print("ENMY_BUFFSTATUS: "+ self.enemy.Buff)
+        print("ENMY_DEBUFFSTATUS: "+ self.enemy.Debuff)
+
         self.check_end()
 
         if not self.combate_terminado:
-            self.enemy_turn_delay = 40  # ~0.6 segundos a 60 FPS
+            self.enemy_turn_delay = 80  # ~0.6 segundos a 60 FPS
             self.waiting_enemy = True
 
         self.menu_state = "main"
