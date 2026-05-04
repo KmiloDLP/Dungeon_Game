@@ -12,9 +12,9 @@ SKILLS_DARK = [
     Habilidad("Impacto Vacío","Dark", Damage_skills, bonus=1.4),
 
     # utilidad 
-    Habilidad("Maldición","Dark", Debuff_Stats, stat="Atk", bonus=0.4),
-    Habilidad("Drenaje Oscuro","Dark",Drain_hp,bonus_damage=1.2,bonus_heal=0.5),
+    Habilidad("Maldición","Dark", Debuff_Stats, coste_mp=10, stat="Atk", bonus=0.4),
+    Habilidad("Drenaje","Dark",Drain_hp, coste_mp=10, bonus_damage=1.2,bonus_heal=0.5),
     Habilidad("Debilitamiento","Dark", Debuff_Stats, stat="Def", bonus=0.4),
     Habilidad("Sombra Viva","Dark",Status_modification,state="Blind",duration=2, debuff=False),
-    Habilidad("Robo Total","Dark",steal_stats,stat="Atk",bonus=0.4),
+    Habilidad("Vinculo","Dark",steal_stats,stat="Atk",bonus=0.4),
 ]

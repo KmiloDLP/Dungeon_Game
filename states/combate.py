@@ -164,9 +164,8 @@ class CombatState:
         self.apply_skill_effects(efecto)
 
         print("PLAYER_BUFFSTATUS: "+ self.player.Buff)
-        print("PLAYER_DEBUFFSTATUS: "+ self.player.Debuff)
-        print("ENMY_BUFFSTATUS: "+ self.enemy.Buff)
-        print("ENMY_DEBUFFSTATUS: "+ self.enemy.Debuff)
+        print("ENEMY_DEBUFFSTATUS: "+ self.enemy.Debuff)
+
 
         self.check_end()
 

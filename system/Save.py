@@ -15,14 +15,14 @@ def guardar_juego(game):
         "oro": game.oro
     }
 
-    with open("save.json", "w") as f:
-        json.dump(data, f, indent=4)
+    with open("save.json", "w", encoding="utf-8") as f:
+        json.dump(data, f, indent=4, ensure_ascii=False)
         f.flush()
 
 
 def cargar_juego(game):
     try:
-        with open("save.json", "r") as f:
+        with open("save.json", "r", encoding="utf-8") as f:
             contenido = f.read().strip()
 
             if not contenido:
@@ -53,7 +53,7 @@ def cargar_juego(game):
         game.inventario = {}
         game.oro = 0
     try:
-        with open("save.json", "r") as f:
+        with open("save.json", "r", encoding="utf-8") as f:
             contenido = f.read().strip()
 
             if not contenido:

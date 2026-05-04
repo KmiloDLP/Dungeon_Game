@@ -44,10 +44,16 @@ def crear_carta_desde_dict(data):
 
     # 🔥 restaurar habilidades guardadas
     if "skills" in data:
-        carta.habilidades = [
-            SKILL_NAME_MAP[nombre]
-            for nombre in data["skills"]
-            if nombre in SKILL_NAME_MAP
-        ]
+        print(f"Skills en save para {data.get('Class', 'Unknown')}: {data['skills']}")
+        habilidades_cargadas = []
+        for nombre in data["skills"]:
+            print(f"Checking: {repr(nombre)} in map: {repr(nombre in SKILL_NAME_MAP)}")
+            if nombre in SKILL_NAME_MAP:
+                habilidades_cargadas.append(SKILL_NAME_MAP[nombre])
+                print(f"Cargada: {nombre}")
+            else:
+                print(f"No encontrada: {repr(nombre)}")
+        carta.habilidades = habilidades_cargadas
+        print(f"Habilidades cargadas: {[s.nombre for s in carta.habilidades]}")
 
     return carta

@@ -20,8 +20,10 @@ class Habilidad:
         if user.MP < self.coste_mp:
             return {"error": "no_mp"}
 
-        # consumir MP
+        # consumir 
         user.MP -= self.coste_mp
+        print("MP: " + str(user.MP))
+        print("Costs_MP: " + str(self.coste_mp))
 
         # definir target
         if self.objetivo == "self":

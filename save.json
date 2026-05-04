@@ -1,38 +1,39 @@
 {
     "mazo": [
         {
-            "tipo": "Dragons",
-            "Class": "Dragon",
-            "Type": "Water",
-            "HP": 500,
-            "MP": 200,
-            "Atk": 25,
+            "tipo": "Immortals",
+            "Class": "Immortal",
+            "Type": "Light",
+            "HP": 200,
+            "MP": 30,
+            "Atk": 30,
             "Def": 30,
-            "Spd": 65,
+            "Spd": 20,
             "skills": [
-                "Golpe Brutal"
+                "Golpe Fuerte",
+                "Maldición"
             ]
         },
         {
-            "tipo": "Warriors",
-            "Class": "Warrior",
-            "Type": "Light",
-            "HP": 155,
-            "MP": 162,
-            "Atk": 42,
-            "Def": 2,
-            "Spd": 10,
+            "tipo": "Immortals",
+            "Class": "Immortal",
+            "Type": "Water",
+            "HP": 104,
+            "MP": 190,
+            "Atk": 47,
+            "Def": 19,
+            "Spd": 62,
             "skills": [
-                "Combo Salvaje",
-                "Bautizo"
+                "Cadena Rápida",
+                "Flujo Vital"
             ]
         }
     ],
     "inventario": {
         "Minipocion": 7,
         "Pocion": 7,
-        "Superpocion": 6,
-        "Hiperpocion": 8
+        "Superpocion": 9,
+        "Hiperpocion": 10
     },
-    "oro": 8743
+    "oro": 8773
 }

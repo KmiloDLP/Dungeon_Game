@@ -61,6 +61,7 @@ class Carta:
         skill_elemental = random.choice(SKILLS_BY_TYPE[self.Type])
 
         self.habilidades = [skill_fisica, skill_elemental]
+        print(f"Asignadas habilidades a {self.Class} {self.Type}: {[s.nombre for s in self.habilidades]}")
 
     #  USO DE HABILIDADES
     def usar_habilidad(self, index, target=None):
